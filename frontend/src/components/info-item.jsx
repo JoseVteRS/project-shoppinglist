@@ -1,7 +1,15 @@
+import { useContext } from "react";
+import { UI_PART } from "../constants/ui-parts";
+import { UIContext } from "../lib/context/ui-context";
+
 const InfoItem = () => {
+  const {showUiPart} = useContext(UIContext)
   return (
     <div className="bg-white h-full p-8">
-      <button className="font-semibold text-yellow-500 hover:underline">
+      <button
+        onClick={() => showUiPart(UI_PART.ITEM_LIST)}
+        className="font-semibold text-yellow-500 hover:underline"
+      >
         ← back
       </button>
       <div className="rounded-xl overflow-hidden mt-8 ">

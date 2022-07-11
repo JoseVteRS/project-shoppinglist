@@ -12,12 +12,12 @@ const HistoryPage = () => {
           <h2 className="font-semibold text-xl mb-6">Shopping history</h2>
         </div>
         <article className="mb-16">
-          <date className="font-medium mb-2 block">August 2022</date>
+          <p className="font-medium mb-2 block">August 2022</p>
           <HistoryItemInfo />
           <HistoryItemInfo />
         </article>
         <article className="mb-16">
-          <date className="font-medium mb-2 block">August 2022</date>
+          <p className="font-medium mb-2 block">August 2022</p>
           <HistoryItemInfo />
         </article>
       </section>

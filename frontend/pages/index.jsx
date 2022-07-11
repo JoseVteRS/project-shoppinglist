@@ -1,9 +1,7 @@
 import { useContext } from "react";
 import CardAddItem from "../src/components/cards/card-add-item";
-import AddNewItem from "../src/components/forms/add-new-item";
-import Resume from "../src/components/list/resume";
-import { UI_PART } from "../src/constants/ui-parts";
 import MainLayout from "../src/layouts/main-layout";
+import SidebarLayout from "../src/layouts/sidebar-layout";
 import { UIContext } from "../src/lib/context/ui-context";
 
 export default function Home() {
@@ -34,10 +32,10 @@ export default function Home() {
               <h3 className="text-2xl font-semibold text-gray-800 mb-5">
                 Fruits and vegetables
               </h3>
-              <div className="flex flex-wrap gap-5">
+              <div className="grid grid-cols-4 gap-5">
                 <CardAddItem item={{ itemName: "Avocado" }} />
                 <CardAddItem item={{ itemName: "Pulled pork 200g" }} />
-                <CardAddItem item={{ itemName: "Banana asd" }} />
+                <CardAddItem item={{ itemName: "Banana" }} />
                 <CardAddItem
                   item={{
                     itemName: "Bunch of carrots 5pcs",
@@ -112,9 +110,7 @@ export default function Home() {
         </section>
 
         <section className="w-3/12">
-          {/* <InfoItem /> */}
-          {/* {isActive ? <AddNewItem /> : <Resume />} */}
-          {showPart === UI_PART.ADD_ITEM_FORM ? <AddNewItem /> : <Resume />}
+          <SidebarLayout layout={showPart} />
         </section>
       </div>
     </MainLayout>
