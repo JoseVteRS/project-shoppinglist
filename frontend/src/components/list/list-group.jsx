@@ -18,7 +18,7 @@ const ListGroup = ({ listItems = [], listFamily = "" }) => {
     <div className="mt-12">
       <p className="text-gray-500 font-semibold mb-8">{listFamily}</p>
       {listItems.map((item) => (
-        <ListItem item={item} />
+        <ListItem key={item.name} item={item} />
       ))}
     </div>
   );

@@ -1,10 +1,14 @@
 import { SearchIcon } from "@heroicons/react/outline";
+import { useContext } from "react";
 import CardAddItem from "../src/components/cards/card-add-item";
 import AddNewItem from "../src/components/forms/add-new-item";
 import Resume from "../src/components/list/resume";
 import MainLayout from "../src/layouts/main-layout";
+import { UIContext } from "../src/lib/context/ui-context";
 
 export default function Home() {
+  const { isActive } = useContext(UIContext);
+
   return (
     <MainLayout>
       <div className="w-full flex bg-gray-50">
@@ -36,8 +40,7 @@ export default function Home() {
                 <CardAddItem item={{ itemName: "Banana" }} />
                 <CardAddItem
                   item={{
-                    itemName:
-                      "Bunch of carrots 5pcs",
+                    itemName: "Bunch of carrots 5pcs",
                   }}
                 />
                 <CardAddItem item={{ itemName: "Avocado" }} />
@@ -109,8 +112,7 @@ export default function Home() {
         </section>
 
         <section className="w-3/12">
-          <Resume />
-          <AddNewItem />
+          {isActive ? <AddNewItem /> : <Resume />}
         </section>
       </div>
     </MainLayout>

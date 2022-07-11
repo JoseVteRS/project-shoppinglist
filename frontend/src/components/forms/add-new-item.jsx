@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
+import { UIContext } from "../../lib/context/ui-context";
 import Input from "../ui/form/input";
 import Textarea from "../ui/form/textarea";
 
 const AddNewItem = () => {
+
+  const {toggleAddItemForm} = useContext(UIContext)
+
   return (
     <div className="w-full sticky top-0 p-5">
       <h2 className="mb-10 text-2xl font-semibold">Add new item</h2>
@@ -43,7 +47,9 @@ const AddNewItem = () => {
             <button type="button" className="font-medium text-gray-800">
               cancel
             </button>
+            {/* TODO: PRovisional poner la funcion en onSuccess */}
             <button
+              onClick={toggleAddItemForm}
               type="submit"
               className="bg-yellow-500 p-4 rounded-lg font-medium text-white"
             >
