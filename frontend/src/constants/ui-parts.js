@@ -1,0 +1,5 @@
+export const UI_PART = {
+  ADD_ITEM_FORM: "ADD_ITEM_FORM",
+  ITEM_INFO: "ITEM_INFO",
+  ITEM_LIST: "ITEM_LIST",
+};

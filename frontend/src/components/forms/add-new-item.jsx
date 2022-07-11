@@ -1,11 +1,12 @@
 import React, { useContext } from "react";
+import { UI_PART } from "../../constants/ui-parts";
 import { UIContext } from "../../lib/context/ui-context";
 import Input from "../ui/form/input";
 import Textarea from "../ui/form/textarea";
 
 const AddNewItem = () => {
 
-  const {toggleAddItemForm} = useContext(UIContext)
+  const { showUiPart } = useContext(UIContext);
 
   return (
     <div className="w-full sticky top-0 p-5">
@@ -49,7 +50,7 @@ const AddNewItem = () => {
             </button>
             {/* TODO: PRovisional poner la funcion en onSuccess */}
             <button
-              onClick={toggleAddItemForm}
+              onClick={() => showUiPart(UI_PART.ITEM_LIST)}
               type="submit"
               className="bg-yellow-500 p-4 rounded-lg font-medium text-white"
             >

@@ -7,15 +7,15 @@ const UIProvider = ({ children }) => {
 
     const [state, dispatch] = useReducer(uiAddItemFormReducer, UI_ADD_ITEM_FORM_INITIAL_STATE)
 
-    const toggleAddItemForm =()=> {
-        dispatch({type: UI_ACTIONS.TOGGLE_ADD_ITEM_MENU})
+    const showUiPart =(payload)=> {
+        dispatch({type: UI_ACTIONS.UI_PART, payload })
     }
 
   return (
     <UIContext.Provider
       value={{
         ...state,
-        toggleAddItemForm,
+        showUiPart,
       }}
     >
       {children}
