@@ -1,48 +1,28 @@
-import React from 'react'
-import StatisticItem from '../src/components/ui/statistic-item';
-import MainLayout from '../src/layouts/main-layout'
+import { ChevronRightIcon } from "@heroicons/react/outline";
+import React from "react";
+import HistoryItemInfo from "../src/components/history/history-item-info";
+import StatisticItem from "../src/components/ui/statistic-item";
+import MainLayout from "../src/layouts/main-layout";
 
 const HistoryPage = () => {
   return (
     <MainLayout>
-      <section className="w-full bg-gray-100 p-4 h-screen">
+      <section className="w-full bg-gray-100 px-12 py-4 h-screen">
         <div>
-          <h2 className="font-semibold text-xl mb-6">Top items</h2>
-          <StatisticItem
-            info={{ itemName: "Banana", itemPercent: 32.5 }}
-            color="primary"
-          />
-          <StatisticItem
-            info={{ itemName: "Rice", itemPercent: 47 }}
-            color="primary"
-          />
-          <StatisticItem
-            info={{ itemName: "Avocado", itemPercent: 100 }}
-            color="primary"
-          />
+          <h2 className="font-semibold text-xl mb-6">Shopping history</h2>
         </div>
-        <div>
-          <h2 className="font-semibold text-xl mb-6">Top Categories</h2>
-          <StatisticItem
-            info={{ itemName: "Fruits and vegetables", itemPercent: 23 }}
-            color="secondary"
-          />
-          <StatisticItem
-            info={{ itemName: "Meat and Fish", itemPercent: 14 }}
-            color="secondary"
-          />
-          <StatisticItem
-            info={{ itemName: "Pets", itemPercent: 11 }}
-            color="secondary"
-          />
-        </div>
-        <div>
-          <h2 className="font-semibold text-xl mb-10">Monthly Sumamry</h2>
-
-        </div>
+        <article className="mb-16">
+          <date className="font-medium mb-2 block">August 2022</date>
+          <HistoryItemInfo />
+          <HistoryItemInfo />
+        </article>
+        <article className="mb-16">
+          <date className="font-medium mb-2 block">August 2022</date>
+          <HistoryItemInfo />
+        </article>
       </section>
     </MainLayout>
   );
-}
+};
 
-export default HistoryPage
+export default HistoryPage;

@@ -4,11 +4,10 @@ import React from 'react'
 
 const ListNoHasItem = () => {
   return (
-    <div className="mt-8">
-      <p className="font-bold text-xl">Shopping List</p>
-
-      <div className="my-10">
-
+    <div className="flex flex-col items-center justify-between h-full">
+      <p className="font-bold text-xl">No items</p>
+      <div>
+        <img src="/undraw-cart.svg" />
       </div>
     </div>
   );

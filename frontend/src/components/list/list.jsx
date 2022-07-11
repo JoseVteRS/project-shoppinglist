@@ -1,5 +1,6 @@
 import React from "react";
 import ListGroup from "./list-group";
+import ListNoHasItem from "./list-no-has-item";
 
 let listItems = [
   {
@@ -35,12 +36,7 @@ const List = () => {
           </div>
         </>
       ) : (
-        <div className="flex flex-col items-center justify-between h-full">
-          <p className="font-bold text-xl">No items</p>
-          <div>
-            <img src="/undraw-cart.svg" />
-          </div>
-        </div>
+        <ListNoHasItem />
       )}
     </div>
   );

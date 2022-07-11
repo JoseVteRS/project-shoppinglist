@@ -9,8 +9,6 @@ import { UIContext } from "../src/lib/context/ui-context";
 export default function Home() {
   const { showPart } = useContext(UIContext);
 
-  console.log(showPart)
-
   return (
     <MainLayout>
       <div className="w-full flex bg-gray-50">
