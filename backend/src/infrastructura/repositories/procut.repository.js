@@ -1,18 +1,20 @@
 import { Product } from "../../domain/models/product.model.js";
 import { NameVO } from "../../domain/value-objects/name.vo.js";
+import { NoteVO } from "../../domain/value-objects/note.vo.js";
 import { UuidVO } from "../../domain/value-objects/uuid.vo.js";
 import { ProductSchema } from "../schemas/product-schema.js";
 
 export class ProductRepository {
-  toDomain(_id, name) {
-    return Product(new UuidVO(_id), new NameVO(name));
+  toDomain(_id, name, note) {
+    return Product(new UuidVO(_id), new NameVO(name), new NoteVO(note));
   }
 
   toPersistance(domainUser) {
-    const { id, name } = domainUser;
+    const { id, name, note } = domainUser;
     return {
       _id: id.value,
       name: name.value,
+      note: note.value
     };
   }
 
@@ -36,6 +38,4 @@ export class ProductRepository {
     const product = new ProductSchema(persistanceProduct);
     await product.save();
   }
-
-  
 }
