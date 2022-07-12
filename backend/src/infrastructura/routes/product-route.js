@@ -8,6 +8,9 @@ const productFindByIdController = container.resolve(
   "productFindByIdController"
 );
 const productListController = container.resolve("productListController");
+const productListGroupedByCategory = container.resolve(
+  "productListGroupedByCategory"
+);
 
 router.post(
   "/api/product/create",
@@ -22,6 +25,11 @@ router.get(
 router.get(
   "/api/products",
   productListController.execute.bind(productListController)
+);
+
+router.get(
+  "/api/products/grouped_by_category",
+  productListGroupedByCategory.execute.bind(productListGroupedByCategory)
 );
 
 export const productRoutes = router;

@@ -9,6 +9,8 @@ import { ProductFindByIdUseCase } from "./application/use-cases/product-find-by-
 import { ProductFindByIdController } from "./infrastructura/controllers/product-find-by-id.controller.js";
 import { ProductListUseCase } from "./application/use-cases/product-list.usecase.js";
 import { ProductListController } from "./infrastructura/controllers/product-list.controller.js";
+import { ProductListGroupedByCategoryUseCase } from "./application/use-cases/product-list-grouped-by-category.usecase.js";
+import { ProductListGroupedByCategoryController } from "./infrastructura/controllers/product-list-grouped-by-category.controller.js";
 
 const container = awilix.createContainer({
   injectionMode: awilix.InjectionMode.PROXY,
@@ -19,18 +21,23 @@ container.register({
   productCreateUseCase: awilix.asClass(ProductCreateUseCase).singleton(),
   productFindByIdUseCase: awilix.asClass(ProductFindByIdUseCase).singleton(),
   productListUseCase: awilix.asClass(ProductListUseCase).singleton(),
+  productListGroupedByCategoryUseCase: awilix
+    .asClass(ProductListGroupedByCategoryUseCase)
+    .singleton(),
   categoryCreateUseCase: awilix.asClass(CategoryCreateUseCase).singleton(),
 });
 
 // Controllers
 container.register({
   productCreateController: awilix.asClass(ProductCreateController).singleton(),
-  productFindByIdController: awilix.asClass(ProductFindByIdController).singleton(),
+  productFindByIdController: awilix
+    .asClass(ProductFindByIdController)
+    .singleton(),
   productListController: awilix.asClass(ProductListController).singleton(),
+  productListGroupedByCategory: awilix.asClass(ProductListGroupedByCategoryController).singleton(),
   categoryCreateController: awilix
     .asClass(CategoryCreateController)
     .singleton(),
-
 });
 
 // Repositories

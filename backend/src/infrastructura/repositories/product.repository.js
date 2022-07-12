@@ -54,4 +54,17 @@ export class ProductRepository {
     if (!allProducts) return null;
     return allProducts;
   }
+
+  async getProductGroupedByCategory() {
+    const allProducts = await ProductSchema.aggregate([
+      {
+        $group: {
+          _id: "$category",
+          obj: { $push: { name: "$name" } },
+        },
+      },
+    ]);
+    if (!allProducts) return null;
+    return allProducts;
+  }
 }
