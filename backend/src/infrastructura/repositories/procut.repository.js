@@ -9,8 +9,8 @@ export class ProductRepository {
     return Product(new UuidVO(_id), new NameVO(name), new NoteVO(note));
   }
 
-  toPersistance(domainUser) {
-    const { id, name, note } = domainUser;
+  toPersistance(domainProduct) {
+    const { id, name, note } = domainProduct;
     return {
       _id: id.value,
       name: name.value,
@@ -31,10 +31,10 @@ export class ProductRepository {
 
   /**
    * Persists a new Product
-   * @param {ProductModel} domainUser Domain product
+   * @param {ProductModel} domainProduct Domain product
    */
-  async create(domainUser) {
-    const persistanceProduct = this.toPersistance(domainUser);
+  async create(domainProduct) {
+    const persistanceProduct = this.toPersistance(domainProduct);
     const product = new ProductSchema(persistanceProduct);
     await product.save();
   }
