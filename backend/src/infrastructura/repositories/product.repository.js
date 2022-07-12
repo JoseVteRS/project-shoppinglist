@@ -20,10 +20,9 @@ export class ProductRepository {
       _id: id.value,
       name: name.value,
       note: note.value,
-      category: category.value
+      category: category.value,
     };
   }
-
 
   async findById(id) {
     const productFound = await ProductSchema.findById(id.value).exec();
@@ -38,9 +37,21 @@ export class ProductRepository {
   }
 
   async getProductById(id) {
-    const allProducts = await ProductSchema.findById(id.value).populate('category', '_id, name').lean().exec();
-    if(!allProducts) return null;
-    return allProducts;
+    const productById = await ProductSchema.findById(id.value)
+      .populate("category", "_id, name")
+      .lean()
+      .exec();
+    if (!productById) return null;
+    return productById;
   }
 
+  //TODO: Implementar sistema de paginación
+  async getProducts() {
+    const allProducts = await ProductSchema.find()
+      .populate("category", "_id, name")
+      .lean()
+      .exec();
+    if (!allProducts) return null;
+    return allProducts;
+  }
 }

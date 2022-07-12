@@ -16,7 +16,7 @@ export class ProductFindByIdController {
 
       const foundProductById = await this.productFindByIdUseCase.execute(id);
 
-      res.status(201).send({ data: foundProductById });
+      res.status(200).send({ data: foundProductById });
     } catch (error) {
       next(error);
     }
