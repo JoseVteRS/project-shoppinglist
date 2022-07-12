@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import mongoose from "mongoose";
 import { config as dotenvconfig } from "dotenv";
 import { productRoutes } from "./infrastructura/routes/product-route.js";
@@ -12,6 +13,7 @@ export const bootstrap = async () => {
   app.disable("x-powered-by");
 
   app.use(express.json());
+  app.use(cors());
 
   // Routes
   app.use(productRoutes);

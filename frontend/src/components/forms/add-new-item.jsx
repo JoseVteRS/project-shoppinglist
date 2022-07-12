@@ -1,29 +1,39 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
+import { toast } from "react-toastify";
+import { useForm } from "react-hook-form";
 import { UI_PART } from "../../constants/ui-parts";
 import { UIContext } from "../../lib/context/ui-context";
 import Input from "../ui/form/input";
 import Textarea from "../ui/form/textarea";
+import { productCreateApi } from "../../lib/api/products/product-create.api";
 
 const AddNewItem = () => {
-
   const { showUiPart } = useContext(UIContext);
+  const { register, handleSubmit } = useForm();
+  const onSubmit = async (data) => {
+    productCreateApi(data, () => {
+      toast.success(`Producto \"${data.name}\" correctamente`);
+      showUiPart(UI_PART.ITEM_LIST);
+    });
+  };
 
   return (
     <div className="w-full sticky top-0 p-5">
       <h2 className="mb-10 text-2xl font-semibold">Add new item</h2>
 
       <div>
-        <form>
-          <Input title="Name" placeholder="Enter a name" label="name" />
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Input
+            register={register}
+            title="Name"
+            placeholder="Enter a name"
+            label="name"
+          />
           <Textarea
+            register={register}
             title="Note (optional)"
             placeholder="Enter a note"
             label="note"
-          />
-          <Input
-            title="Image (optional)"
-            placeholder="Enter a url"
-            label="name"
           />
 
           <div className="group mb-8">
@@ -33,13 +43,15 @@ const AddNewItem = () => {
             >
               Category
             </label>
-            <select className="border-2 border-gray-400 rounded-lg bg-transparent p-4 w-full mb-5 focus:outline-yellow-500">
-              <option className="hover:bg-gray-200 p-2">
-                Fruit and vegetable
-              </option>
-              <option className="hover:bg-gray-200 p-2">Meat and Fish</option>
-              <option className="hover:bg-gray-200 p-2">
-                Fruit and vegetable
+            <select
+              {...register("category")}
+              className="border-2 border-gray-400 rounded-lg bg-transparent p-4 w-full mb-5 focus:outline-yellow-500"
+            >
+              <option
+                className="hover:bg-gray-200 p-2"
+                value="a0756e23-d97c-4473-8105-2091321ceab5"
+              >
+                Carnes
               </option>
             </select>
           </div>
@@ -50,7 +62,6 @@ const AddNewItem = () => {
             </button>
             {/* TODO: PRovisional poner la funcion en onSuccess */}
             <button
-              onClick={() => showUiPart(UI_PART.ITEM_LIST)}
               type="submit"
               className="bg-yellow-500 p-4 rounded-lg font-medium text-white"
             >

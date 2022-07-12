@@ -1,6 +1,6 @@
 
 
-const Textarea = ({ title, label, type, placeholder, ...props }) => {
+const Textarea = ({ title, label, register, type, placeholder, ...props }) => {
   return (
     <div className="group mb-8">
       <label
@@ -10,6 +10,7 @@ const Textarea = ({ title, label, type, placeholder, ...props }) => {
         {title}
       </label>
       <textarea
+        {...register(label)}
         className="border-2 border-gray-400 rounded-lg bg-transparent p-4 w-full group-focus-within:outline-yellow-500"
         type={type}
         name={label}

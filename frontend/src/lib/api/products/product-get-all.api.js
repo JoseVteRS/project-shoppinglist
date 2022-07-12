@@ -1,8 +1,10 @@
+import { API_URL } from "../../../constants/api";
 
 
-export const getProductsApi = async ()=> {
+export const productListAllApi = async ()=> {
     try {
-        const res = await fetch(`http://localhost:3004/api/products`)
+        console.log(API_URL);
+        const res = await fetch(`${API_URL}/products`)
         
         let productsList;
         if(res.ok) productsList = await res.json();

@@ -1,9 +1,11 @@
 import { useContext } from "react";
 import { UI_PART } from "../constants/ui-parts";
+import { ProductContext } from "../lib/context/product-context";
 import { UIContext } from "../lib/context/ui-context";
 
 const InfoItem = () => {
-  const {showUiPart} = useContext(UIContext)
+  const { showUiPart } = useContext(UIContext);
+  const { productSelected } = useContext(ProductContext);
   return (
     <div className="bg-white h-full p-8">
       <button
@@ -22,16 +24,11 @@ const InfoItem = () => {
       <div>
         <div className="my-8">
           <p className="text-gray-400 font-medium text-sm mb-2">name</p>
-          <p className="text-gray-800 font-medium">Avocado</p>
+          <p className="text-gray-800 font-medium">{productSelected.name}</p>
         </div>
         <div className="my-8">
           <p className="text-gray-400 font-medium text-sm mb-2">note</p>
-          <p className="text-gray-800 font-medium">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur
-            culpa molestiae provident dolore corrupti fuga neque aperiam harum
-            exercitationem libero repellendus aliquid, error, quas praesentium
-            saepe odio recusandae id consequuntur.
-          </p>
+          <p className="text-gray-800 font-medium">{productSelected?.note}</p>
         </div>
         <div className="flex gap-4 items-center justify-around">
           <button className="font-semibold text-gray-800">delete</button>

@@ -2,13 +2,11 @@ import { useContext } from "react";
 import CardAddItem from "../src/components/cards/card-add-item";
 import MainLayout from "../src/layouts/main-layout";
 import SidebarLayout from "../src/layouts/sidebar-layout";
-import { getProductsApi } from "../src/lib/api/products/get-products.api";
+import { productListAllApi } from "../src/lib/api/products/product-get-all.api";
 import { UIContext } from "../src/lib/context/ui-context";
 
 export default function Home({ products }) {
   const { showPart } = useContext(UIContext);
-
-  console.log(products)
 
   return (
     <MainLayout>
@@ -36,13 +34,13 @@ export default function Home({ products }) {
                 Fruits and vegetables
               </h3>
               <div className="grid grid-cols-4 gap-5">
-                {!products ? (
-                  <p>Cargando...</p>
-                ) : (
-                  products.productsList.data.map((item) => (
-                    <CardAddItem item={{itemName: item.name}} />
-                  ))
+                {!products && <p>Cargando...</p>}
+                {products.productsList.data.length === 0 && (
+                  <p>No products to show</p>
                 )}
+                {products.productsList.data.map((item) => (
+                  <CardAddItem key={item._id} item={item} />
+                ))}
               </div>
             </div>
           </section>
@@ -57,7 +55,7 @@ export default function Home({ products }) {
 }
 
 export const getServerSideProps = async () => {
-  const products = await getProductsApi();
+  const products = await productListAllApi();
 
   return {
     props: {
