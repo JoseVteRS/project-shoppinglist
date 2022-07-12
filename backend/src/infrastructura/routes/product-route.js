@@ -20,7 +20,7 @@ router.get(
 );
 
 router.get(
-  "/api/product",
+  "/api/products",
   productListController.execute.bind(productListController)
 );
 

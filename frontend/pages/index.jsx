@@ -2,10 +2,13 @@ import { useContext } from "react";
 import CardAddItem from "../src/components/cards/card-add-item";
 import MainLayout from "../src/layouts/main-layout";
 import SidebarLayout from "../src/layouts/sidebar-layout";
+import { getProductsApi } from "../src/lib/api/products/get-products.api";
 import { UIContext } from "../src/lib/context/ui-context";
 
-export default function Home() {
+export default function Home({ products }) {
   const { showPart } = useContext(UIContext);
+
+  console.log(products)
 
   return (
     <MainLayout>
@@ -33,77 +36,13 @@ export default function Home() {
                 Fruits and vegetables
               </h3>
               <div className="grid grid-cols-4 gap-5">
-                <CardAddItem item={{ itemName: "Avocado" }} />
-                <CardAddItem item={{ itemName: "Pulled pork 200g" }} />
-                <CardAddItem item={{ itemName: "Banana" }} />
-                <CardAddItem
-                  item={{
-                    itemName: "Bunch of carrots 5pcs",
-                  }}
-                />
-                <CardAddItem item={{ itemName: "Avocado" }} />
-                <CardAddItem item={{ itemName: "Avocado" }} />
-                <CardAddItem item={{ itemName: "Pieple de sapo melon" }} />
-                <CardAddItem item={{ itemName: "Watermelon" }} />
-              </div>
-            </div>
-            <div className="my-10">
-              <h3 className="text-2xl font-semibold text-gray-800 mb-5">
-                Meat and Fish
-              </h3>
-              <div className="flex flex-wrap gap-5">
-                <CardAddItem item={{ itemName: "Avocado" }} />
-                <CardAddItem item={{ itemName: "Pulled pork 200g" }} />
-                <CardAddItem item={{ itemName: "Pieple de sapo melon" }} />
-                <CardAddItem item={{ itemName: "Watermelon" }} />
-              </div>
-            </div>
-
-            <div className="my-10">
-              <h3 className="text-2xl font-semibold text-gray-800 mb-5">
-                Beverages
-              </h3>
-              <div className="flex flex-wrap gap-5">
-                <CardAddItem item={{ itemName: "Avocado" }} />
-                <CardAddItem item={{ itemName: "Pulled pork 200g" }} />
-                <CardAddItem item={{ itemName: "Pulled pork 200g" }} />
-                <CardAddItem item={{ itemName: "Pulled pork 200g" }} />
-                <CardAddItem item={{ itemName: "Pulled pork 200g" }} />
-                <CardAddItem item={{ itemName: "Pulled pork 200g" }} />
-                <CardAddItem item={{ itemName: "Pulled pork 200g" }} />
-              </div>
-            </div>
-            <div className="my-10">
-              <h3 className="text-2xl font-semibold text-gray-800 mb-5">
-                Beverages
-              </h3>
-              <div className="flex flex-wrap gap-5">
-                <CardAddItem item={{ itemName: "Avocado" }} />
-                <CardAddItem item={{ itemName: "Pulled pork 200g" }} />
-                <CardAddItem item={{ itemName: "Pulled pork 200g" }} />
-              </div>
-            </div>
-            <div className="my-10">
-              <h3 className="text-2xl font-semibold text-gray-800 mb-5">
-                Beverages
-              </h3>
-              <div className="flex flex-wrap gap-5">
-                <CardAddItem item={{ itemName: "Avocado" }} />
-                <CardAddItem item={{ itemName: "Pulled pork 200g" }} />
-                <CardAddItem item={{ itemName: "Pulled pork 200g" }} />
-                <CardAddItem item={{ itemName: "Pulled pork 200g" }} />
-              </div>
-            </div>
-            <div className="my-10">
-              <h3 className="text-2xl font-semibold text-gray-800 mb-5">
-                Beverages
-              </h3>
-              <div className="flex flex-wrap gap-5">
-                <CardAddItem item={{ itemName: "Avocado" }} />
-                <CardAddItem item={{ itemName: "Pulled pork 200g" }} />
-                <CardAddItem item={{ itemName: "Pulled pork 200g" }} />
-                <CardAddItem item={{ itemName: "Pulled pork 200g" }} />
-                <CardAddItem item={{ itemName: "Pulled pork 200g" }} />
+                {!products ? (
+                  <p>Cargando...</p>
+                ) : (
+                  products.productsList.data.map((item) => (
+                    <CardAddItem item={{itemName: item.name}} />
+                  ))
+                )}
               </div>
             </div>
           </section>
@@ -116,3 +55,13 @@ export default function Home() {
     </MainLayout>
   );
 }
+
+export const getServerSideProps = async () => {
+  const products = await getProductsApi();
+
+  return {
+    props: {
+      products: products,
+    },
+  };
+};
