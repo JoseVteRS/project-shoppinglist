@@ -5,6 +5,8 @@ import { ProductRepository } from "./infrastructura/repositories/procut.reposito
 import { CategoryCreateUseCase } from "./application/use-cases/category-create.usecase.js";
 import { CategoryCreateController } from "./infrastructura/controllers/category-create.controller.js";
 import { CategoryRepository } from "./infrastructura/repositories/category.repository.js";
+import { ProductFindByIdUseCase } from "./application/use-cases/product-find-by-id.js";
+import { ProductFindByIdController } from "./infrastructura/controllers/product-find-by-id.controller.js";
 
 const container = awilix.createContainer({
   injectionMode: awilix.InjectionMode.PROXY,
@@ -13,15 +15,18 @@ const container = awilix.createContainer({
 // Use Cases
 container.register({
   productCreateUseCase: awilix.asClass(ProductCreateUseCase).singleton(),
+  productFindByIdUseCase: awilix.asClass(ProductFindByIdUseCase).singleton(),
   categoryCreateUseCase: awilix.asClass(CategoryCreateUseCase).singleton(),
 });
 
 // Controllers
 container.register({
   productCreateController: awilix.asClass(ProductCreateController).singleton(),
+  productFindByIdController: awilix.asClass(ProductFindByIdController).singleton(),
   categoryCreateController: awilix
     .asClass(CategoryCreateController)
     .singleton(),
+
 });
 
 // Repositories

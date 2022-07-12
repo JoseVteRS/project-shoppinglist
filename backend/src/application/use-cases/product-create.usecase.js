@@ -9,10 +9,15 @@ export class ProductCreateUseCase {
     this.productRepository = productRepository;
   }
 
-  async execute(id, name, note) {
+  async execute(id, name, note, category) {
     const productId = new UuidVO(id);
 
-    const newProduct = new Product(productId, new NameVO(name), new NoteVO(note));
+    const newProduct = new Product(
+      productId,
+      new NameVO(name),
+      new NoteVO(note),
+      new UuidVO(category)
+    );
 
     // Comprobar si existe id duplicado
     const existingProductById = await this.productRepository.findById(

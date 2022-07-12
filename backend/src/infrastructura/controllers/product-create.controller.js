@@ -8,16 +8,16 @@ export class ProductCreateController {
   }
 
   async execute(req, res, next) {
-    const { name, note, ...rest } = req.body;
+    const { name, note, category, ...rest } = req.body;
 
     try {
-      if (!name) throw new MissingFieldsFormatException();
+      if (!name || !category) throw new MissingFieldsFormatException();
       if (Object.keys(rest).length !== 0)
         throw new UnnecesaryFieldsFormatException();
 
       const productId = uuidv4();
 
-      await this.productCreateUseCase.execute(productId, name, note);
+      await this.productCreateUseCase.execute(productId, name, note, category);
 
       res.status(201).send();
     } catch (error) {
