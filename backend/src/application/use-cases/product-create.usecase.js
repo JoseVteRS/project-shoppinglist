@@ -1,7 +1,7 @@
-import { Product } from "../../domain/models/product.model";
-import { NameVO } from "../../domain/value-objects/name.vo";
-import { UuidVO } from "../../domain/value-objects/uuid.vo";
-import { ProductIdAlreadyInUse } from "../errors/product-id-already-in-use.exception";
+import { Product } from "../../domain/models/product.model.js";
+import { NameVO } from "../../domain/value-objects/name.vo.js";
+import { UuidVO } from "../../domain/value-objects/uuid.vo.js";
+import { ProductIdAlreadyInUse } from "../errors/product-id-already-in-use.exception.js";
 
 export class ProductCreateUseCase {
   constructor({ productRepository }) {

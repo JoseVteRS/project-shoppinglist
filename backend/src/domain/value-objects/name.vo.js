@@ -1,5 +1,5 @@
-import { VOFormatException } from "../errors/vo-format.exception";
-import { ValueObject } from "../value-object";
+import { VOFormatException } from "../errors/vo-format.exception.js";
+import { ValueObject } from "../value-object.js";
 
 
 

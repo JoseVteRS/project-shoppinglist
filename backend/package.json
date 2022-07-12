@@ -4,6 +4,7 @@
   "main": "index.js",
   "type": "module",
   "dependencies": {
+    "awilix": "7.0.3",
     "express": "4.18.1",
     "mongoose": "6.4.4"
   },

@@ -1,6 +1,6 @@
-import { InvalidProductFormatException } from "../errors/invalid-product.exception";
-import { NameVO } from "../value-objects/name.vo";
-import { UuidVO } from "../value-objects/uuid.vo";
+import { InvalidProductFormatException } from "../errors/invalid-product.exception.js";
+import { NameVO } from "../value-objects/name.vo.js";
+import { UuidVO } from "../value-objects/uuid.vo.js";
 
 export class Product {
   constructor(id, name) {

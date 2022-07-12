@@ -1,11 +1,11 @@
-import { ProductModel } from "../../domain/models/product.model.js";
+import { Product } from "../../domain/models/product.model.js";
 import { NameVO } from "../../domain/value-objects/name.vo.js";
 import { UuidVO } from "../../domain/value-objects/uuid.vo.js";
-import { ProductSchema } from "../schemas/product-schema";
+import { ProductSchema } from "../schemas/product-schema.js";
 
 export class ProductRepository {
   toDomain(_id, name) {
-    return ProductModel(new UuidVO(_id), new NameVO(name));
+    return Product(new UuidVO(_id), new NameVO(name));
   }
 
   toPersistance(domainUser) {
