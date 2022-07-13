@@ -1,12 +1,21 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import CardAddItem from "../src/components/cards/card-add-item";
 import MainLayout from "../src/layouts/main-layout";
 import SidebarLayout from "../src/layouts/sidebar-layout";
 import { productListAllApi } from "../src/lib/api/products/product-get-all.api";
+import { productListByCategory } from "../src/lib/api/products/product-get-by-category.api";
 import { UIContext } from "../src/lib/context/ui-context";
 
-export default function Home({ products }) {
+export default function Home({ data }) {
   const { showPart } = useContext(UIContext);
+
+  useEffect(() => {
+    const handleFecht = async () => {
+      const data = await productListByCategory();
+      console.log({data})
+    };
+    handleFecht();
+  }, []);
 
   return (
     <MainLayout>
@@ -34,13 +43,13 @@ export default function Home({ products }) {
                 Fruits and vegetables
               </h3>
               <div className="grid grid-cols-4 gap-5">
-                {!products && <p>Cargando...</p>}
+                {/* {!products && <p>Cargando...</p>}
                 {products.productsList.data.length === 0 && (
                   <p>No products to show</p>
                 )}
                 {products.productsList.data.map((item) => (
                   <CardAddItem key={item._id} item={item} />
-                ))}
+                ))} */}
               </div>
             </div>
           </section>
@@ -53,13 +62,3 @@ export default function Home({ products }) {
     </MainLayout>
   );
 }
-
-export const getServerSideProps = async () => {
-  const products = await productListAllApi();
-
-  return {
-    props: {
-      products: products,
-    },
-  };
-};

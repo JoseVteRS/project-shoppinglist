@@ -3,7 +3,7 @@ import { API_URL } from "../../../constants/api";
 
 export const productListAllApi = async ()=> {
     try {
-        console.log(API_URL);
+  
         const res = await fetch(`${API_URL}/products`)
         
         let productsList;
