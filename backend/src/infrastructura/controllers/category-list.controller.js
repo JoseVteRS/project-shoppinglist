@@ -1,8 +1,8 @@
 import { UnnecesaryFieldsFormatException } from "../errors/unnecesary-fields.exception.js";
 
-export class ProductListController {
-  constructor({ productListUseCase }) {
-    this.productListUseCase = productListUseCase;
+export class CategoryListController {
+  constructor({ categoryListUseCase }) {
+    this.categoryListUseCase = categoryListUseCase;
   }
 
   async execute(req, res, next) {
@@ -12,9 +12,9 @@ export class ProductListController {
       if (Object.keys(body).length !== 0)
         throw new UnnecesaryFieldsFormatException();
 
-      const foundProducts = await this.productListUseCase.execute();
+      const foundCategories = await this.categoryListUseCase.execute();
 
-      res.status(200).send({ data: foundProducts });
+      res.status(200).send({ data: foundCategories });
     } catch (error) {
       next(error);
     }

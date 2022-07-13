@@ -13,28 +13,31 @@ export class CategoryRepository {
     const { id, name } = domainCategory;
     return {
       _id: id.value,
-      name: name.value
+      name: name.value,
     };
   }
 
-  /**
-   * Finds a category by id
-   * @param {String} id Category id
-   * @returns Domain category
-   */
   async findById(id) {
     const categoryFound = await CategorySchema.findById(id.value).exec();
     if (!categoryFound) return null;
     return this.toDomain(categoryFound);
   }
 
-  /**
-   * Persists a new Category
-   * @param {CategoryModel} domainCategory Domain category
-   */
   async create(domainCategory) {
     const persistanceCategory = this.toPersistance(domainCategory);
     const category = new CategorySchema(persistanceCategory);
     await category.save();
+  }
+
+  async getCategoryById(id) {
+    const categoryById = await CategorySchema.findById(id.value).lean().exec();
+    if (!categoryById) return null;
+    return categoryById;
+  }
+
+  async getCategories() {
+    const categories = await CategorySchema.find().lean().exec();
+    if(!categories) return null;
+    return categories
   }
 }
