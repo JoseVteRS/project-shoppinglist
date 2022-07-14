@@ -1,11 +1,8 @@
-import React from 'react'
-import AddItem from '../add-item';
-import List from './list';
+import React from "react";
+import AddItem from "../add-item";
+import List from "./list";
 
 const Resume = () => {
-
-  
-
   return (
     <div className="w-full sticky top-0 ">
       <div className="bg-orange-100 p-5 h-[90vh] overflow-y-scroll">
@@ -13,13 +10,13 @@ const Resume = () => {
         <List />
       </div>
 
-      <div className="bg-white w-full p-4 flex items-center justify-center ">
+      <div className="bg-white w-full p-2 flex items-center justify-center ">
         <div className="relative">
           <input
-          disabled
+            disabled
             type="text"
             placeholder="Enter a name"
-            className="disabled:border-gray-400 border-2 border-yellow-600 rounded-xl p-4 pr-24"
+            className="disabled:border-gray-400 border-2 border-yellow-600 rounded-xl p-4 pr-24 w-full"
           />
           <button
             disabled
@@ -31,6 +28,6 @@ const Resume = () => {
       </div>
     </div>
   );
-}
+};
 
-export default Resume
+export default Resume;

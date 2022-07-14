@@ -1,20 +1,17 @@
 import { useContext, useEffect } from "react";
 import CardAddItem from "../src/components/cards/card-add-item";
+import Modal from "../src/components/ui/modal";
 import MainLayout from "../src/layouts/main-layout";
 import SidebarLayout from "../src/layouts/sidebar-layout";
-import { productListAllApi } from "../src/lib/api/products/product-get-all.api";
-import { productListByCategory } from "../src/lib/api/products/product-get-by-category.api";
+import { productListByCategories } from "../src/lib/api/products/product-get-by-category.api";
 import { UIContext } from "../src/lib/context/ui-context";
 
 export default function Home({ data }) {
-  const { showPart } = useContext(UIContext);
-
-  // console.log(data.productsByCategory)
-
+  
 
   return (
     <MainLayout>
-      <div className="w-full flex bg-gray-50">
+      <div className="w-full flex bg-gray-50 h-full">
         <section className="w-9/12 p-5">
           <div className="mb-10 flex items-start justify-between">
             <h2 className="font-semibold text-4xl w-2/3">
@@ -34,42 +31,45 @@ export default function Home({ data }) {
 
           <section>
             <div className="my-10">
-              {
-                !data ? <p>Cargando...</p> :
-                  data.productsByCategory.map(product => {
-                    return (
-                      <div className="mb-12">
-                        <h3 key={product._id} className="text-2xl font-semibold text-gray-800 mb-5">{product._id}</h3>
-                        <div className="grid grid-cols-4 gap-5" >
-                          {product.docs.map((item) => {
-                            return <CardAddItem key={item._id} item={item} />
-                          })}
-                        </div>
+              {!data ? (
+                <p>Cargando...</p>
+              ) : (
+                data.productsGrouped.data.map((product) => {
+                  return (
+                    <div key={product._id} className="mb-12">
+                      <h3
+                        key={product._id}
+                        className="text-2xl font-semibold text-gray-800 mb-5"
+                      >
+                        {product.categoryInfo.name}
+                      </h3>
+                      <div className="grid grid-cols-4 gap-5">
+                        {product.products.map((item) => {
+                          return <CardAddItem key={item._id} item={item} />;
+                        })}
                       </div>
-                    )
-                  })
-              }
+                    </div>
+                  );
+                })
+              )}
             </div>
           </section>
         </section>
-
+        {/* 
         <section className="w-3/12">
           <SidebarLayout layout={showPart} />
-        </section>
+        </section> */}
       </div>
     </MainLayout>
   );
 }
 
-
 export const getServerSideProps = async () => {
-  const data = await productListByCategory();
-
-  console.log(data)
+  const data = await productListByCategories();
 
   return {
     props: {
-      data
-    }
-  }
-}
+      data,
+    },
+  };
+};

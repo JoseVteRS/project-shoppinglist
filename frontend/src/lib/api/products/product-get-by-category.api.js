@@ -1,6 +1,9 @@
 import { API_URL } from "../../../constants/api";
 import { categoryGetById } from "../categories/category-by-id.api";
 
+/**
+ * @deprecated Since 14/07/2022
+ */
 export const productListByCategory = async () => {
   try {
     const res = await fetch(`${API_URL}/products/grouped_by_category`);
@@ -34,3 +37,25 @@ export const productListByCategory = async () => {
     };
   }
 };
+
+export const productListByCategories = async ()=> {
+   try {
+    const res = await fetch(`${API_URL}/products/grouped_by_category`);
+
+    let productsByCategories;
+    if (res.ok) productsByCategories = await res.json();
+
+    return {
+      productsGrouped: productsByCategories,
+      hasError: false,
+    };
+
+   } catch(error) {
+      return {
+
+        hasError: true,
+        error: error.message
+      }
+   }
+}
+

@@ -10,7 +10,7 @@
 input:focus + label {
   @apply text-green-500;
 }
-
+/* 
 
 ::-webkit-scrollbar {
   width: 0px;
@@ -44,4 +44,4 @@ input:focus + label {
 }
 ::-webkit-scrollbar-corner {
   background: transparent;
-}
+} */

@@ -17,7 +17,7 @@ const CardAddItem = ({ item }) => {
   return (
     <div className="bg-white p-3 rounded-xl flex gap-5 items-start justify-between text-gray-800 font-medium text-lg  shadow-md shadow-gray-500/20 h-min">
       {name}
-      <button onClick={() => handleSeletectProductAndChangeScreen(_id)}>
+      <button onClick={() => handleSeletectProductAndChangeScreen(_id)} className="inline-block">
         <PlusIcon className="stroke-gray-300 h-6 w-6" />
       </button>
     </div>

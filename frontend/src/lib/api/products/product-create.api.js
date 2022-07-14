@@ -7,7 +7,7 @@ export const productCreateApi = async (newProductData, onSuccess) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(newProductData),
     });
 
     if (res.ok) {

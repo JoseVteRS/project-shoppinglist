@@ -14,7 +14,7 @@ export const getCategories = async () => {
     };
   } catch (error) {
     return {
-      productsList: undefined,
+      categories: undefined,
       hasError: true,
     };
   }

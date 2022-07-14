@@ -56,17 +56,36 @@ export class ProductRepository {
   }
 
   async getProductGroupedByCategory() {
-    const aggregatePipeline = [
+    const allProducts = await ProductSchema.aggregate([
+      {
+        $unwind: "$category",
+      },
       {
         $group: {
-          _id:  "$category",
+          _id: "$category",
           count: { $sum: 1 },
           docs: { $push: "$$ROOT" },
         },
       },
-    ];
+      {
+        $lookup: {
+          from: "categories",
+          localField: "_id",
+          foreignField: "_id",
+          as: "categoryInfo",
+        },
+      },
+      {
+        $unwind: "$categoryInfo",
+      },
+      {
+        $project: {
+          products : "$docs",
+          categoryInfo: "$categoryInfo",
+        },
+      },
+    ]);
 
-   const allProducts = await ProductSchema.aggregate(aggregatePipeline);
     if (!allProducts) return null;
     return allProducts;
   }
