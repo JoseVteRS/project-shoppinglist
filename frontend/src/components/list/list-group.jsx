@@ -36,6 +36,70 @@ let listItems = [
       name: "Cereales",
     },
   },
+  {
+    name: "Menestra de verdura",
+    quantity: 1,
+    category: {
+      _id: "1",
+      name: "Vegetales",
+    },
+  },
+  {
+    name: "Pulled pork 1kg",
+    quantity: 3,
+    category: {
+      _id: "2",
+      name: "Carne",
+    },
+  },
+  {
+    name: "Burguer",
+    quantity: 6,
+    category: {
+      _id: "2",
+      name: "Carne",
+    },
+  },
+  {
+    name: "Avena",
+    quantity: 1,
+    category: {
+      _id: "3",
+      name: "Cereales",
+    },
+  },
+  {
+    name: "Tomates",
+    quantity: 3,
+    category: {
+      _id: "1",
+      name: "Vegetales",
+    },
+  },
+  {
+    name: "Pulled pork 1kg",
+    quantity: 3,
+    category: {
+      _id: "2",
+      name: "Carne",
+    },
+  },
+  {
+    name: "Burguer",
+    quantity: 6,
+    category: {
+      _id: "2",
+      name: "Carne",
+    },
+  },
+  {
+    name: "Avena",
+    quantity: 1,
+    category: {
+      _id: "3",
+      name: "Cereales",
+    },
+  },
 ];
 
 const ListGroup = () => {
