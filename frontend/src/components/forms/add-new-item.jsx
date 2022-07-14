@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { UI_PART } from "../../constants/ui-parts";
@@ -8,6 +8,7 @@ import Textarea from "../ui/form/textarea";
 import { productCreateApi } from "../../lib/api/products/product-create.api";
 
 const AddNewItem = () => {
+  const [categoriesOptions, setCategoriesOptions] = useState([]);
   const { showUiPart } = useContext(UIContext);
   const { register, handleSubmit } = useForm();
   const onSubmit = async (data) => {
@@ -16,6 +17,15 @@ const AddNewItem = () => {
       showUiPart(UI_PART.ITEM_LIST);
     });
   };
+
+  useEffect(() => {
+    const getCategories = async () => {
+      const { hasError, categories } = await getCategories();
+      if (!hasError) {
+        setCategoriesOptions(categories)
+      }
+    }
+  }, [])
 
   return (
     <div className="w-full sticky top-0 p-5">
@@ -47,12 +57,11 @@ const AddNewItem = () => {
               {...register("category")}
               className="border-2 border-gray-400 rounded-lg bg-transparent p-4 w-full mb-5 focus:outline-yellow-500"
             >
-              <option
-                className="hover:bg-gray-200 p-2"
-                value="a0756e23-d97c-4473-8105-2091321ceab5"
-              >
-                Carnes
-              </option>
+              {
+                categoriesOptions.map(category => {
+                  return <option key={category._id} value={category._id} >{category.name}</option>
+                })
+              }
             </select>
           </div>
 

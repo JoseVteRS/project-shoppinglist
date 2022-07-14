@@ -8,23 +8,24 @@ export const productListByCategory = async () => {
     let productsByCategories;
     if (res.ok) productsByCategories = await res.json();
 
-    let newArray = []
+    let productsByCategory = []
     for await (const item of productsByCategories.data) {
-      console.log(item);
       const categoryById = categoryGetById(item._id);
 
-      let nameCategory = await (await categoryById).category
+      let nameCategory = await (await categoryById).category.data.name
 
-      newArray.push({
+
+      productsByCategory.push({
         ...item,
-        _id: nameCategory,
+        _id: nameCategory || "",
       });
     }
 
     return {
-      productsByCategories,
+      productsByCategory,
       hasError: false,
     };
+
   } catch (error) {
     return {
       productsByCategories: undefined,

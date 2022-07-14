@@ -9,13 +9,8 @@ import { UIContext } from "../src/lib/context/ui-context";
 export default function Home({ data }) {
   const { showPart } = useContext(UIContext);
 
-  useEffect(() => {
-    const handleFecht = async () => {
-      const data = await productListByCategory();
-      console.log({data})
-    };
-    handleFecht();
-  }, []);
+  // console.log(data.productsByCategory)
+
 
   return (
     <MainLayout>
@@ -39,18 +34,21 @@ export default function Home({ data }) {
 
           <section>
             <div className="my-10">
-              <h3 className="text-2xl font-semibold text-gray-800 mb-5">
-                Fruits and vegetables
-              </h3>
-              <div className="grid grid-cols-4 gap-5">
-                {/* {!products && <p>Cargando...</p>}
-                {products.productsList.data.length === 0 && (
-                  <p>No products to show</p>
-                )}
-                {products.productsList.data.map((item) => (
-                  <CardAddItem key={item._id} item={item} />
-                ))} */}
-              </div>
+              {
+                !data ? <p>Cargando...</p> :
+                  data.productsByCategory.map(product => {
+                    return (
+                      <div className="mb-12">
+                        <h3 key={product._id} className="text-2xl font-semibold text-gray-800 mb-5">{product._id}</h3>
+                        <div className="grid grid-cols-4 gap-5" >
+                          {product.docs.map((item) => {
+                            return <CardAddItem key={item._id} item={item} />
+                          })}
+                        </div>
+                      </div>
+                    )
+                  })
+              }
             </div>
           </section>
         </section>
@@ -61,4 +59,17 @@ export default function Home({ data }) {
       </div>
     </MainLayout>
   );
+}
+
+
+export const getServerSideProps = async () => {
+  const data = await productListByCategory();
+
+  console.log(data)
+
+  return {
+    props: {
+      data
+    }
+  }
 }
