@@ -8,7 +8,7 @@ const List = () => {
   return (
     <div className="mt-8 h-96">
       <div className="font-bold text-xl flex items-center justify-between">
-        <span>Shopping List </span>
+        <span>Shopping List</span>
         <button onClick={()=> console.log("Editar lista")}>
           <PencilIcon className="stroke-gray-800 w-6" />
         </button>
