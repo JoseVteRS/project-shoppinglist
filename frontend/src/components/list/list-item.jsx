@@ -4,10 +4,10 @@ import { ProductContext } from "../../lib/context/product-context";
 import ProductItemCounter from "../product/product-item-counter";
 
 const ListItem = ({ item }) => {
-  const { updateListQuantity } =
-    useContext(ProductContext);
+  const { updateListQuantity } = useContext(ProductContext);
   const { name, quantity } = item;
   const [isActive, setIsActive] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
 
   const onNewListQuantityValue = (product, newQuantityValue) => {
     product.quantity = newQuantityValue;
@@ -16,7 +16,17 @@ const ListItem = ({ item }) => {
 
   return (
     <div className="flex items-center justify-between">
-      <p className="font-semibold text-xl py-3">{name}</p>
+      <div className="py-3 flex items-center gap-4 ">
+        <input
+          onChange={(value) => console.log(value)}
+          className="accent-yellow-500 w-5 h-5 rounded-sm border-2 border-yellow-500"
+          type="checkbox"
+        />
+        <p className="font-semibold text-xl group-checked:line-through">
+          {name}
+        </p>
+      </div>
+
       {!isActive ? (
         <button
           onClick={() => setIsActive(!isActive)}
