@@ -1,6 +1,5 @@
 import { Category } from "../../domain/models/category.model.js";
 import { NameVO } from "../../domain/value-objects/name.vo.js";
-import { NoteVO } from "../../domain/value-objects/note.vo.js";
 import { UuidVO } from "../../domain/value-objects/uuid.vo.js";
 import { CategorySchema } from "../schemas/category-schema.js";
 

@@ -2,18 +2,20 @@ import { InvalidCategoryFormatException } from "../errors/invalid-category.excep
 import { NameVO } from "../value-objects/name.vo.js";
 import { UuidVO } from "../value-objects/uuid.vo.js";
 
-export class Category {
-  constructor(id, name) {
-    this.assertIsValid(id, name);
+export class List {
+  constructor(id, name, produts) {
+    this.assertIsValid(id, name, produts);
 
     this.id = id;
     this.name = name;
+    this.produts = produts;
   }
 
-  assertIsValid(id, name) {
+  assertIsValid(id, name, produts) {
     if (
       !(id instanceof UuidVO) ||
-      !(name instanceof NameVO)
+      !(name instanceof NameVO) ||
+      !typeof produts === Array
     )
       throw new InvalidCategoryFormatException();
   }

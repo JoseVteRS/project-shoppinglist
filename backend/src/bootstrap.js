@@ -5,6 +5,7 @@ import { config as dotenvconfig } from "dotenv";
 import { productRoutes } from "./infrastructura/routes/product-route.js";
 import { categoryRoutes } from "./infrastructura/routes/category-route.js";
 import { errorMiddleware } from "./infrastructura/middlewares/error.middleware.js";
+import { listRoutes } from "./infrastructura/routes/list-route.js";
 
 dotenvconfig();
 
@@ -18,6 +19,7 @@ export const bootstrap = async () => {
   // Routes
   app.use(productRoutes);
   app.use(categoryRoutes);
+  app.use(listRoutes);
 
   // Middleware
   app.use(errorMiddleware);
