@@ -1,109 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
+import { ProductContext } from "../../lib/context/product-context";
 import { groupProductsByCategories } from "../../lib/group-by";
 import ListItem from "./list-item";
 
-// TODO: Context?
-let listItems = [
-  {
-    name: "Avocado",
-    quantity: 3,
-    category: {
-      _id: "1",
-      name: "Vegetales",
-    },
-  },
-  {
-    name: "Pulled pork 1kg",
-    quantity: 3,
-    category: {
-      _id: "2",
-      name: "Carne",
-    },
-  },
-  {
-    name: "Burguer",
-    quantity: 6,
-    category: {
-      _id: "2",
-      name: "Carne",
-    },
-  },
-  {
-    name: "Avena",
-    quantity: 1,
-    category: {
-      _id: "3",
-      name: "Cereales",
-    },
-  },
-  {
-    name: "Menestra de verdura",
-    quantity: 1,
-    category: {
-      _id: "1",
-      name: "Vegetales",
-    },
-  },
-  {
-    name: "Pulled pork 1kg",
-    quantity: 3,
-    category: {
-      _id: "2",
-      name: "Carne",
-    },
-  },
-  {
-    name: "Burguer",
-    quantity: 6,
-    category: {
-      _id: "2",
-      name: "Carne",
-    },
-  },
-  {
-    name: "Avena",
-    quantity: 1,
-    category: {
-      _id: "3",
-      name: "Cereales",
-    },
-  },
-  {
-    name: "Tomates",
-    quantity: 3,
-    category: {
-      _id: "1",
-      name: "Vegetales",
-    },
-  },
-  {
-    name: "Pulled pork 1kg",
-    quantity: 3,
-    category: {
-      _id: "2",
-      name: "Carne",
-    },
-  },
-  {
-    name: "Burguer",
-    quantity: 6,
-    category: {
-      _id: "2",
-      name: "Carne",
-    },
-  },
-  {
-    name: "Avena",
-    quantity: 1,
-    category: {
-      _id: "3",
-      name: "Cereales",
-    },
-  },
-];
 
 const ListGroup = () => {
-  let products = groupProductsByCategories(listItems, "category");
+  const { productsInListPreSaved } = useContext(ProductContext);
+  let products = groupProductsByCategories(productsInListPreSaved, "category");
 
   return (
     <div className="mt-12">

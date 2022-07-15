@@ -1,10 +1,10 @@
 import { PRODUCT_ACTIONS } from "../../constants/actions/product-actions";
 
 export const PRODUCTS_CONTEXT_INITIAL_STATE = {
-    productListIndex: [],
-    productsInListPreSaved: [],
-    productSelected: {},
-}
+  productListIndex: [],
+  productsInListPreSaved: [],
+  productSelected: {},
+};
 
 export const productReducer = (state, { type, payload }) => {
   switch (type) {
@@ -15,17 +15,28 @@ export const productReducer = (state, { type, payload }) => {
       };
 
     case PRODUCT_ACTIONS.PRODUCT_INFO:
-        return {
-            ...state,
-            productSelected: payload
-        }
-
-    case PRODUCT_ACTIONS.PRODUCTS_IN_LIST_PRE_SAVED:
       return {
         ...state,
-        productsInListPreSaved: [...state.productsInListPreSaved, payload],
+        productSelected: payload,
       };
+
+    case PRODUCT_ACTIONS.LIST_ADD_PRODUCT:
+      return {
+        ...state,
+        productsInListPreSaved: [...payload],
+      };
+
+    case PRODUCT_ACTIONS.LIST_CHANGE_QUANITY: 
+      return {
+        ...state,
+        productsInListPreSaved: state.productsInListPreSaved.map(product => {
+          console.log(product)
+          if (product !== product._id) return product;
+          return payload;
+        })
+      };
+    
     default:
-      throw new Error("Type not defined")
+      throw new Error("Type not defined");
   }
 };

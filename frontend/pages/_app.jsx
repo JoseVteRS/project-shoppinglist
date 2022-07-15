@@ -7,11 +7,11 @@ import "../styles/globals.css";
 function MyApp({ Component, pageProps }) {
   return (
     <>
-      <UIProvider>
-        <ProductProvider>
+      <ProductProvider>
+        <UIProvider>
           <Component {...pageProps} />
-        </ProductProvider>
-      </UIProvider>
+        </UIProvider>
+      </ProductProvider>
       <ToastContainer
         position="bottom-center"
         autoClose={5000}

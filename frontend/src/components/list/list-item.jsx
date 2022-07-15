@@ -1,15 +1,22 @@
 import { MinusIcon, PlusIcon, TrashIcon } from "@heroicons/react/outline";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { ProductContext } from "../../lib/context/product-context";
+import ProductItemCounter from "../product/product-item-counter";
 
 const ListItem = ({ item }) => {
+  const { updateListQuantity } =
+    useContext(ProductContext);
   const { name, quantity } = item;
-
   const [isActive, setIsActive] = useState(false);
- const [plusQuanity, setPlusQuanity] = useState(quantity);
+
+  const onNewListQuantityValue = (product, newQuantityValue) => {
+    product.quantity = newQuantityValue;
+    updateListQuantity(product);
+  };
 
   return (
-    <div className="mt-5 flex items-center justify-between">
-      <p className="font-semibold text-md">{name}</p>
+    <div className="flex items-center justify-between">
+      <p className="font-semibold text-xl py-3">{name}</p>
       {!isActive ? (
         <button
           onClick={() => setIsActive(!isActive)}
@@ -18,23 +25,12 @@ const ListItem = ({ item }) => {
           {quantity}pcs
         </button>
       ) : (
-        <div className="bg-white flex items-center gap-2 rounded-xl pr-2 ">
-          <button className="bg-yellow-600 rounded-xl grid place-content-center h-11 px-2">
-            <TrashIcon className="stroke-white w-4" />
-          </button>
-          <button>
-            <MinusIcon className="stroke-yellow-600 h-3 w-3" />
-          </button>
-          <button
-            onClick={() => setIsActive(!isActive)}
-            className="rounded-full border-2 border-yellow-600 py-1 px-3 text-xs text-yellow-600 font-semibold"
-          >
-            {plusQuanity}pcs
-          </button>
-          <button onClick={() => setPlusQuanity(plusQuanity + 1)}>
-            <PlusIcon className="stroke-yellow-600 h-3 w-3" />
-          </button>
-        </div>
+        <ProductItemCounter
+          setIsActive={setIsActive}
+          currentValue={quantity}
+          maxValue={99}
+          updatedQuantity={(value) => onNewListQuantityValue(item, value)}
+        />
       )}
     </div>
   );

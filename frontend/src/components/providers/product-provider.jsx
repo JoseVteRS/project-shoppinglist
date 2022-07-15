@@ -7,7 +7,7 @@ import {
   PRODUCTS_CONTEXT_INITIAL_STATE,
 } from "../../lib/reducers/product-reducer";
 
- const ProductProvider = ({ children }) => {
+const ProductProvider = ({ children }) => {
   const [state, dispatch] = useReducer(
     productReducer,
     PRODUCTS_CONTEXT_INITIAL_STATE
@@ -30,18 +30,56 @@ import {
     });
   };
 
+  const addProductToList = async (productId) => {
+    const product = await productGetById(productId);
+    const productsInListPreSaved = state.productsInListPreSaved.some(
+      (prod) => prod._id === product.product.data._id
+    );
+
+    if (!productsInListPreSaved) {
+      return dispatch({
+        type: PRODUCT_ACTIONS.LIST_ADD_PRODUCT,
+        payload: [
+          ...state.productsInListPreSaved,
+          {
+            ...product.product.data,
+            quantity: parseInt(1),
+          },
+        ],
+      });
+    }
+
+    const updateProducts = state.productsInListPreSaved.map((prod) => {
+      if (prod._id !== product.product.data._id) return prod;
+
+      prod.quantity += 1;
+      return prod;
+    });
+
+    dispatch({
+      type: PRODUCT_ACTIONS.LIST_ADD_PRODUCT,
+      payload: updateProducts,
+    });
+  };
+
+const updateListQuantity = (product) => {
+  dispatch({type: PRODUCT_ACTIONS.LIST_CHANGE_QUANITY, payload: product})
+}
+
+
   return (
     <ProductContext.Provider
       value={{
         ...state,
         listProducts,
         selectProduct,
+        addProductToList,
+        updateListQuantity,
       }}
     >
       {children}
     </ProductContext.Provider>
   );
 };
-
 
 export default ProductProvider;

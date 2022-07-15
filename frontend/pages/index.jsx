@@ -43,7 +43,7 @@ export default function Home({ data }) {
                       >
                         {product.categoryInfo.name}
                       </h3>
-                      <div className="grid grid-cols-4 gap-5">
+                      <div className="flex flex-wrap gap-5">
                         {product.products.map((item) => {
                           return <CardAddItem key={item._id} item={item} />;
                         })}
