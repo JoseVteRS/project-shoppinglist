@@ -18,12 +18,12 @@ const AddNewItem = () => {
 
   const onSubmit = async (data) => {
     productCreateApi(data, () => {
-      toast.success(`Producto \"${data.name}\" correctamente`);
+      toast.success(`Producto \"${data.name}\" creado correctamente`);
       showUiPart(UI_PART.ITEM_LIST);
     });
   };
 
-  const handleOnCloseModal = ()=> {
+  const handleOnCloseModal = () => {
     setShowModal(false);
     showUiPart(UI_PART.ITEM_LIST);
 

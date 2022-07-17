@@ -5,17 +5,22 @@ import { uiAddItemFormReducer, UI_ADD_ITEM_FORM_INITIAL_STATE } from "../../lib/
 
 const UIProvider = ({ children }) => {
 
-    const [state, dispatch] = useReducer(uiAddItemFormReducer, UI_ADD_ITEM_FORM_INITIAL_STATE)
+  const [state, dispatch] = useReducer(uiAddItemFormReducer, UI_ADD_ITEM_FORM_INITIAL_STATE)
 
-    const showUiPart =(payload)=> {
-        dispatch({type: UI_ACTIONS.UI_PART, payload })
-    }
+  const showUiPart = (payload) => {
+    dispatch({ type: UI_ACTIONS.UI_PART, payload })
+  }
+
+  const handleShowEditList = (payload) => {
+    dispatch({ type: UI_ACTIONS.UI_EDIT_LIST })
+  }
 
   return (
     <UIContext.Provider
       value={{
         ...state,
         showUiPart,
+        handleShowEditList
       }}
     >
       {children}
