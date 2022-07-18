@@ -1,18 +1,25 @@
 import { List } from "../../domain/models/list.model.js";
+import { CompletedVO } from "../../domain/value-objects/completed.vo.js";
 import { NameVO } from "../../domain/value-objects/name.vo.js";
 import { UuidVO } from "../../domain/value-objects/uuid.vo.js";
 import { ListSchema } from "../schemas/list-schema.js";
 
 export class ListRepository {
-  toDomain(_id, name, produts) {
-    return List(new UuidVO(_id), new NameVO(name), produts);
+  toDomain(_id, name, completed, produts) {
+    return List(
+      new UuidVO(_id),
+      new NameVO(name),
+      new CompletedVO(completed),
+      produts
+    );
   }
 
   toPersistance(domainList) {
-    const { id, name, produts } = domainList;
+    const { id, name, completed, produts } = domainList;
     return {
       _id: id.value,
       name: name.value,
+      completed: completed.value,
       produts,
     };
   }

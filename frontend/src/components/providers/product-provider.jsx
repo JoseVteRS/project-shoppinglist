@@ -1,5 +1,6 @@
-import { useReducer } from "react";
+import { useEffect, useReducer } from "react";
 import { PRODUCT_ACTIONS } from "../../constants/actions/product-actions";
+import { productListByCategories } from "../../lib/api/products/product-get-by-category.api";
 import { productGetById } from "../../lib/api/products/product-get-by-id.api";
 import { ProductContext } from "../../lib/context/product-context";
 import {
@@ -14,13 +15,25 @@ const ProductProvider = ({ children }) => {
   );
 
   const listProducts = async () => {
-    const dataProduct = await productListAllApi();
+    const dataProduct = await productListByCategories();
     if (!dataProduct) return null;
     dispatch({
       type: PRODUCT_ACTIONS.PRODUCTS_LIST_INDEX,
-      payload: dataProduct.productsList.data,
+      payload: dataProduct.productsGrouped.data,
     });
   };
+
+  const addProductToIndexListOnCreate = (product) => {
+    dispatch({
+      type: PRODUCT_ACTIONS.PRODUCT_ADD_TO_INDEX_ON_CREATE,
+      payload: [...state.productListIndex, ...product],
+    });
+  };
+
+  useEffect(() => {
+    listProducts();
+
+  }, []);
 
   const selectProduct = async (productId) => {
     const product = await productGetById(productId);
@@ -62,10 +75,9 @@ const ProductProvider = ({ children }) => {
     });
   };
 
-const updateListQuantity = (product) => {
-  dispatch({type: PRODUCT_ACTIONS.LIST_CHANGE_QUANITY, payload: product})
-}
-
+  const updateListQuantity = (product) => {
+    dispatch({ type: PRODUCT_ACTIONS.LIST_CHANGE_QUANITY, payload: product });
+  };
 
   return (
     <ProductContext.Provider
@@ -75,6 +87,7 @@ const updateListQuantity = (product) => {
         selectProduct,
         addProductToList,
         updateListQuantity,
+        addProductToIndexListOnCreate,
       }}
     >
       {children}

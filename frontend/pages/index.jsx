@@ -1,40 +1,43 @@
-import { useContext, useEffect } from "react";
+import { SearchIcon } from "@heroicons/react/outline";
+import { useContext } from "react";
 import CardAddItem from "../src/components/cards/card-add-item";
-import Modal from "../src/components/ui/modal";
 import MainLayout from "../src/layouts/main-layout";
-import SidebarLayout from "../src/layouts/sidebar-layout";
 import { productListByCategories } from "../src/lib/api/products/product-get-by-category.api";
-import { UIContext } from "../src/lib/context/ui-context";
+import { ProductContext } from "../src/lib/context/product-context";
 
-export default function Home({ data }) {
+
+export default function Home() {
+
+  const { productListIndex } = useContext(ProductContext);
   
-
   return (
     <MainLayout>
       <div className="w-full flex bg-gray-50 h-full">
-        <section className="w-9/12 p-5">
+        <section className="w-full p-5">
           <div className="mb-10 flex items-start justify-between">
             <h2 className="font-semibold text-4xl w-2/3">
               <span className="text-yellow-500">Shoppinglist</span> allows you
               take your shopping list wherever you go.
             </h2>
             <div className="w-1/3 relative">
-              {/* <SearchIcon className="stroke-gray-300 w-5 h-5 abosulute left-0 top-0" /> */}
+              <div className="absolute left-3 top-2 translate-y-1/2">
+                <SearchIcon className="stroke-gray-800 w-5 h-5 " />
+              </div>
 
               <input
                 type="text"
                 placeholder="search item"
-                className="bg-white p-4 rounded-xl shadow-md shadow-gray-500/10 w-full"
+                className="bg-white py-4 px-10 rounded-xl shadow-md shadow-gray-500/10 w-full"
               />
             </div>
           </div>
 
           <section>
             <div className="my-10">
-              {!data ? (
+              {!productListIndex ? (
                 <p>Cargando...</p>
               ) : (
-                data.productsGrouped.data.map((product) => {
+                productListIndex.map((product) => {
                   return (
                     <div key={product._id} className="mb-12">
                       <h3
@@ -63,13 +66,3 @@ export default function Home({ data }) {
     </MainLayout>
   );
 }
-
-export const getServerSideProps = async () => {
-  const data = await productListByCategories();
-
-  return {
-    props: {
-      data,
-    },
-  };
-};

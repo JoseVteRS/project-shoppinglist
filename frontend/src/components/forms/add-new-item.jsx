@@ -5,53 +5,33 @@ import { UI_PART } from "../../constants/ui-parts";
 import { UIContext } from "../../lib/context/ui-context";
 import Input from "../ui/form/input";
 import Textarea from "../ui/form/textarea";
-import Modal from "../ui/modal";
 import { productCreateApi } from "../../lib/api/products/product-create.api";
 import SelectCategories from "./categories-select";
 import AddCategoryForm from "./add-category";
-
+import { ProductContext } from "../../lib/context/product-context";
 
 const AddNewItem = () => {
   const { showUiPart } = useContext(UIContext);
+  const { addProductToIndexListOnCreate } = useContext(ProductContext);
   const [showModal, setShowModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [showCategoryAddForm, setShowCategoryAddForm] = useState(false);
 
   const { register, handleSubmit } = useForm();
 
   const onSubmit = async (data) => {
-    productCreateApi(data, () => {
+    setIsLoading(true);
+
+    await productCreateApi(data, () => {
+      setIsLoading(false);
       toast.success(`Producto \"${data.name}\" creado correctamente`);
       showUiPart(UI_PART.ITEM_LIST);
+      // addProductToIndexListOnCreate(data);
     });
   };
 
-  const handleOnCloseModal = () => {
-    setShowModal(false);
-    showUiPart(UI_PART.ITEM_LIST);
-
-  }
-
   return (
     <>
-      <Modal show={showModal} onClose={handleOnCloseModal}>
-        <p className="font-medium text-xl w-4/5">
-          Are you sure that you want to cancel this list?
-        </p>
-        <div className="flex items-center justify-end mt-8 gap-5">
-          <button
-            onClick={handleOnCloseModal}
-            className=" rounded p-2 text-gray-800 font-semibold"
-          >
-            cancel
-          </button>
-          <button
-            onClick={() => console.log("YES")}
-            className="bg-red-400 rounded p-2 w-20 text-white"
-          >
-            Yes
-          </button>
-        </div>
-      </Modal>
       <div className="w-full sticky top-0 p-5">
         <h2 className="mb-10 text-2xl font-semibold">Add new item</h2>
 
@@ -75,7 +55,13 @@ const AddNewItem = () => {
                 htmlFor="gategory"
                 className="mb-2 flex items-center gap-3 font-medium text-gray-700 group-focus-within:text-yellow-500"
               >
-                Category <button className="bg-gray-300 rounded p-2" onClick={() => setShowCategoryAddForm(true)} >Add category</button>
+                Category{" "}
+                <button
+                  className="bg-gray-300 rounded p-2"
+                  onClick={() => setShowCategoryAddForm(true)}
+                >
+                  Add category
+                </button>
               </label>
               <SelectCategories register={register} label="category" />
             </div>
@@ -89,23 +75,21 @@ const AddNewItem = () => {
                 cancel
               </button>
               <button
+                disabled={isLoading}
                 type="submit"
                 className="bg-yellow-500 hover:shadow-lg focus:outline-yellow-500 focus:outline-offset-4 p-4 rounded-lg font-medium text-white"
               >
-                Save
+                {isLoading ? "Saving new product" : "Save"}
               </button>
             </div>
           </form>
         </div>
-        {
-          showCategoryAddForm && (<div>
+        {showCategoryAddForm && (
+          <div>
             <AddCategoryForm />
-          </div>)
-        }
-
+          </div>
+        )}
       </div>
-
-
     </>
   );
 };

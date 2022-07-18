@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { ProductContext } from "../../lib/context/product-context";
-import AddItem from "../add-item";
+import CreateProduct from "../create-product";
 import List from "./list";
 import ListNoHasItem from "./list-no-has-item";
 
@@ -12,7 +12,7 @@ const EditResume = () => {
   return (
     <div className="w-full sticky top-0 ">
       <div className="bg-orange-100 p-5 h-[90vh] overflow-y-scroll">
-        <AddItem />
+        <CreateProduct />
 
         {hasProducts ? <List /> : <ListNoHasItem />}
       </div>

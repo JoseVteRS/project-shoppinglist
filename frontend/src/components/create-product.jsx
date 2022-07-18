@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { UI_PART } from "../constants/ui-parts";
 import { UIContext } from "../lib/context/ui-context";
 
-const AddItem = () => {
+const CreateProduct = () => {
   const { showUiPart } = useContext(UIContext);
   return (
     <div className="bg-[#80485b] w-full p-3 rounded-3xl gap-9 flex items-center justify-between ">
@@ -24,4 +24,4 @@ const AddItem = () => {
   );
 };
 
-export default AddItem;
+export default CreateProduct;

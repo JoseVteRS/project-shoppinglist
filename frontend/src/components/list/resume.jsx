@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { ProductContext } from "../../lib/context/product-context";
 import { UIContext } from "../../lib/context/ui-context";
-import AddItem from "../add-item";
+import CreateProduct from "../create-product";
 import List from "./list";
 import ListNoHasItem from "./list-no-has-item";
 
@@ -25,23 +25,24 @@ const Resume = () => {
       }
     })
 
-    await fetch('http://localhost:3004/api/list/create', {
-      method: 'POST',
+    await fetch("http://localhost:3004/api/list/create", {
+      method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         name: listName,
-        products: productsToSave
-      })
-    })
+        completed: false,
+        products: productsToSave,
+      }),
+    });
 
   }
 
   return (
     <div className="w-full sticky top-0 ">
       <div className="bg-orange-100 p-5 h-[90vh] overflow-y-scroll">
-        <AddItem />
+        <CreateProduct />
 
         {hasProducts ? <List /> : <ListNoHasItem />}
       </div>
