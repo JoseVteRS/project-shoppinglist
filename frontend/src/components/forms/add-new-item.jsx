@@ -8,11 +8,13 @@ import Textarea from "../ui/form/textarea";
 import Modal from "../ui/modal";
 import { productCreateApi } from "../../lib/api/products/product-create.api";
 import SelectCategories from "./categories-select";
+import AddCategoryForm from "./add-category";
 
 
 const AddNewItem = () => {
   const { showUiPart } = useContext(UIContext);
-  const [showModal, setShowModal] = useState(false)
+  const [showModal, setShowModal] = useState(false);
+  const [showCategoryAddForm, setShowCategoryAddForm] = useState(false);
 
   const { register, handleSubmit } = useForm();
 
@@ -73,7 +75,7 @@ const AddNewItem = () => {
                 htmlFor="gategory"
                 className="mb-2 flex items-center gap-3 font-medium text-gray-700 group-focus-within:text-yellow-500"
               >
-                Category
+                Category <button className="bg-gray-300 rounded p-2" onClick={() => setShowCategoryAddForm(true)} >Add category</button>
               </label>
               <SelectCategories register={register} label="category" />
             </div>
@@ -95,7 +97,15 @@ const AddNewItem = () => {
             </div>
           </form>
         </div>
+        {
+          showCategoryAddForm && (<div>
+            <AddCategoryForm />
+          </div>)
+        }
+
       </div>
+
+
     </>
   );
 };
