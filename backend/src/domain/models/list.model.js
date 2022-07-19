@@ -4,21 +4,21 @@ import { NameVO } from "../value-objects/name.vo.js";
 import { UuidVO } from "../value-objects/uuid.vo.js";
 
 export class List {
-  constructor(id, name, completed, produts) {
-    this.assertIsValid(id, name, completed, produts);
+  constructor(id, name, status, products) {
+    this.assertIsValid(id, name, status, products);
 
     this.id = id;
     this.name = name;
-    this.completed = completed;
-    this.produts = produts;
+    this.status = status;
+    this.products = products;
   }
 
-  assertIsValid(id, name, completed, produts) {
+  assertIsValid(id, name, status, products) {
     if (
       !(id instanceof UuidVO) ||
       !(name instanceof NameVO) ||
-      !(completed instanceof CompletedVO) ||
-      !typeof produts === Array
+      !(status instanceof CompletedVO) ||
+      !typeof products === Array
     )
       throw new InvalidCategoryFormatException();
   }

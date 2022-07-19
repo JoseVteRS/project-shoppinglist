@@ -28,7 +28,11 @@ const InfoItem = () => {
         </div>
         <div className="my-8">
           <p className="text-gray-400 font-medium text-sm mb-2">note</p>
-          <p className="text-gray-800 font-medium">{productSelected?.note}</p>
+          {!productSelected?.note ? (
+            <p className="text-gray-400 italic text-sm">No description</p>
+          ) : (
+            <p className="text-gray-800 font-medium">{productSelected?.note}</p>
+          )}
         </div>
         <div className="flex gap-4 items-center justify-around">
           <button className="font-semibold text-gray-800">delete</button>

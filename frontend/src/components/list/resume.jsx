@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import { LIST_STATUS } from "../../constants/list-status";
 import { ProductContext } from "../../lib/context/product-context";
 import { UIContext } from "../../lib/context/ui-context";
 import CreateProduct from "../create-product";
@@ -25,14 +26,14 @@ const Resume = () => {
       }
     })
 
-    await fetch("http://localhost:3004/api/list/create", {
+    await fetch("http://localhost:3004/api/lists/create", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
         name: listName,
-        completed: false,
+        status: LIST_STATUS.INIT,
         products: productsToSave,
       }),
     });

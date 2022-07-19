@@ -18,6 +18,10 @@ import { CategoryListController } from "./infrastructura/controllers/category-li
 import { ListRepository } from "./infrastructura/repositories/list.repository.js";
 import { ListCreateController } from "./infrastructura/controllers/list-create.controller.js";
 import { ListCreateUseCase } from "./application/use-cases/list-create.usecase.js";
+import { ListByIdController } from "./infrastructura/controllers/list-by-id.controller.js";
+import { ListByIdUseCase } from "./application/use-cases/list-by-id.usecase.js";
+import { ListGetAllUseCase } from "./application/use-cases/list-get-all.usecase.js";
+import { ListGetAllController } from "./infrastructura/controllers/list-get-all.controller.js";
 
 const container = awilix.createContainer({
   injectionMode: awilix.InjectionMode.PROXY,
@@ -25,7 +29,7 @@ const container = awilix.createContainer({
 
 // Use Cases
 container.register({
-  // PRODUTS USECASE
+  // products USECASE
   productCreateUseCase: awilix.asClass(ProductCreateUseCase).singleton(),
   productFindByIdUseCase: awilix.asClass(ProductFindByIdUseCase).singleton(),
   productListUseCase: awilix.asClass(ProductListUseCase).singleton(),
@@ -40,6 +44,8 @@ container.register({
 
   // LIST USECASE
   listCreateUseCase: awilix.asClass(ListCreateUseCase).singleton(),
+  listByIdUseCase: awilix.asClass(ListByIdUseCase).singleton(),
+  listGetAllUseCase: awilix.asClass(ListGetAllUseCase).singleton(),
 });
 
 // Controllers
@@ -65,6 +71,8 @@ container.register({
 
   // LISTS CONTROLLERS
   listCreateController: awilix.asClass(ListCreateController).singleton(),
+  listByIdController: awilix.asClass(ListByIdController).singleton(),
+  listGetAllController: awilix.asClass(ListGetAllController).singleton(),
 });
 
 // Repositories

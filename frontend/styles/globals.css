@@ -4,77 +4,167 @@
 @tailwind utilities;
 
 * {
-    @apply font-nunito;
+  @apply font-nunito;
 }
 
 input:focus + label {
-    @apply text-green-500;
+  @apply text-green-500;
 }
 
 ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+  width: 8px;
+  height: 8px;
 }
 ::-webkit-scrollbar-button {
-    width: 8px;
-    height: 8px;
+  width: 8px;
+  height: 8px;
 }
 ::-webkit-scrollbar-thumb {
-    background: #e1e1e1;
-    border: 0px none #ffffff;
-    border-radius: 50px;
+  background: #e1e1e1;
+  border: 0px none #ffffff;
+  border-radius: 50px;
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: #ffffff;
+  background: #ffffff;
 }
 ::-webkit-scrollbar-thumb:active {
-    background: #000000;
+  background: #000000;
 }
 ::-webkit-scrollbar-track {
-    background: #666666;
-    border: 0px none #ffffff;
-    border-radius: 50px;
+  background: #666666;
+  border: 0px none #ffffff;
+  border-radius: 50px;
 }
 ::-webkit-scrollbar-track:hover {
-    background: #666666;
+  background: #666666;
 }
 ::-webkit-scrollbar-track:active {
-    background: #333333;
+  background: #333333;
 }
 ::-webkit-scrollbar-corner {
-    background: transparent;
+  background: transparent;
 }
 
-
 .input {
-	opacity: 0;
-	position: absolute;
-	top: -100vh;
+  opacity: 0;
+  position: absolute;
+  top: -100vh;
 }
 
 .label {
-	cursor: pointer;
-	position: relative;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-	height: 1.5rem;
-	width: 1.5rem;
+  height: 1.5rem;
+  width: 1.5rem;
   @apply border-2 border-yellow-500 rounded-md;
 }
 
 .label:focus-within {
-	@apply shadow-md;
+  @apply shadow-md;
 }
 
 .check {
-	user-select: none;
-	height: 1.5rem;
-	width: 1.5rem;
+  user-select: none;
+  height: 1.5rem;
+  width: 1.5rem;
   @apply stroke-yellow-400;
 }
 
 .input:not(:checked) + .check {
-	display: none;
+  display: none;
+}
+
+.html-select {
+  display: none;
+}
+.custom-select-wrapper {
+  position: relative;
+  user-select: none;
+  width: 100%;
+}
+.custom-select {
+  position: relative;
+  cursor: pointer;
+  @apply text-yellow-500;
+}
+.custom-select__trigger {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+.custom-options {
+  position: absolute;
+  display: block;
+  top: 40px;
+  left: 0;
+  right: 0;
+  background: white;
+  transition: all 0.5s;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: 2;
+  padding: 8px;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+}
+.custom-select.open .custom-options {
+  pointer-events: all;
+  @apply visible opacity-100 shadow border rounded-xl mt-8;
+}
+.custom-option {
+  @apply text-gray-500;
+}
+
+.option-container {
+  @apply p-4 grid place-content-start rounded-xl;
+}
+
+.option-container:hover {
+  cursor: pointer;
+  @apply bg-stone-200;
+}
+
+.custom-option.selected {
+  @apply text-gray-800 bg-neutral-200;
+}
+
+.arrow {
+  position: relative;
+  height: 7.72px;
+  width: 12.26px;
+}
+.arrow::before,
+.arrow::after {
+  content: "";
+  position: absolute;
+  bottom: 0px;
+  width: 0.15rem;
+  height: 100%;
+  transition: all 0.5s;
+}
+.arrow::before {
+  left: -2px;
+  transform: rotate(-45deg);
+  @apply bg-gray-500;
+}
+.arrow::after {
+  left: 2px;
+  transform: rotate(45deg);
+  @apply bg-gray-500;
+}
+.open .arrow::before {
+  left: -2px;
+  transform: rotate(45deg);
+}
+.open .arrow::after {
+  left: 2px;
+  transform: rotate(-45deg);
 }

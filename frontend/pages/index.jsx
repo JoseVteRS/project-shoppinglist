@@ -2,7 +2,7 @@ import { SearchIcon } from "@heroicons/react/outline";
 import { useContext } from "react";
 import CardAddItem from "../src/components/cards/card-add-item";
 import MainLayout from "../src/layouts/main-layout";
-import { productListByCategories } from "../src/lib/api/products/product-get-by-category.api";
+
 import { ProductContext } from "../src/lib/context/product-context";
 
 

@@ -6,7 +6,7 @@ export class ListCreateController {
   }
 
   async execute(req, res, next) {
-    const { name, completed, products, ...rest } = req.body;
+    const { name, status, products, ...rest } = req.body;
 
     try {
       if (!name || !products) throw new Error("Missing fields");
@@ -14,7 +14,7 @@ export class ListCreateController {
 
       const listId = uuidv4();
 
-      await this.listCreateUseCase.execute(listId, name, completed, products);
+      await this.listCreateUseCase.execute(listId, name, status, products);
 
       res.status(201).send();
     } catch (error) {

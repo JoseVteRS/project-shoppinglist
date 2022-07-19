@@ -9,14 +9,14 @@ export  class ListCreateUseCase {
         this.listRepository = listRepository;
     }
 
-    async execute(id, name, completed, produts) {
+    async execute(id, name, status, products) {
         const listId = new UuidVO(id);
 
         const newList = new List(
             listId,
             new NameVO(name),
-            new CompletedVO(completed),
-            produts
+            new CompletedVO(status),
+            products
         );
 
         const existingListById = await this.listRepository.findById(

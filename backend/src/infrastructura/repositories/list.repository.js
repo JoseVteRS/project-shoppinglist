@@ -5,22 +5,22 @@ import { UuidVO } from "../../domain/value-objects/uuid.vo.js";
 import { ListSchema } from "../schemas/list-schema.js";
 
 export class ListRepository {
-  toDomain(_id, name, completed, produts) {
+  toDomain(_id, name, status, products) {
     return List(
       new UuidVO(_id),
       new NameVO(name),
-      new CompletedVO(completed),
-      produts
+      new CompletedVO(status),
+      products
     );
   }
 
   toPersistance(domainList) {
-    const { id, name, completed, produts } = domainList;
+    const { id, name, status, products } = domainList;
     return {
       _id: id.value,
       name: name.value,
-      completed: completed.value,
-      produts,
+      status: status.value,
+      products,
     };
   }
 
@@ -37,13 +37,25 @@ export class ListRepository {
   }
 
   async getListById(id) {
-    const listById = await ListSchema.findById(id.value).lean().exec();
-    if (!categoryById) return null;
+    const listById = await ListSchema.findById(id.value)
+      .populate({
+        path: "products",
+        populate: { path: "product", populate: { path: "category" } },
+      })
+      .lean()
+      .exec();
+    if (!listById) return null;
     return listById;
   }
 
   async getLists() {
-    const lists = await ListSchema.find().lean().exec();
+    const lists = await ListSchema.find()
+      .populate({
+        path: "products",
+        populate: { path: "product", populate: { path: "category" } },
+      })
+      .lean()
+      .exec();
     if (!lists) return null;
     return lists;
   }

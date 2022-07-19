@@ -45,7 +45,7 @@ export class ProductRepository {
     return productById;
   }
 
-  //TODO: Implementar sistema de paginación
+
   async getProducts() {
     const allProducts = await ProductSchema.find()
       .populate("category", "_id, name")

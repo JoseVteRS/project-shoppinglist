@@ -28,15 +28,18 @@ export class CategoryRepository {
     await category.save();
   }
 
-  async getCategoryById(id) {
-    const categoryById = await CategorySchema.findById(id.value).lean().exec();
-    if (!categoryById) return null;
-    return categoryById;
+  async getListById(id) {
+    const listById = await ListSchema.findById(id.value)
+      .populate("product")
+      .lean()
+      .exec();
+    if (!listById) return null;
+    return listById;
   }
 
   async getCategories() {
     const categories = await CategorySchema.find().lean().exec();
-    if(!categories) return null;
-    return categories
+    if (!categories) return null;
+    return categories;
   }
 }
