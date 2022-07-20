@@ -6,6 +6,9 @@ import { UIContext } from "../lib/context/ui-context";
 const InfoItem = () => {
   const { showUiPart } = useContext(UIContext);
   const { productSelected, addProductToList } = useContext(ProductContext);
+
+  console.log({productSelected})
+
   return (
     <div className="bg-white h-full p-8">
       <button
@@ -37,7 +40,7 @@ const InfoItem = () => {
         <div className="flex gap-4 items-center justify-around">
           <button className="font-semibold text-gray-800">delete</button>
           <button
-            onClick={() => addProductToList(productSelected._id)}
+            onClick={() => addProductToList(productSelected)}
             className="bg-yellow-500 hover:bg-yellow-600 p-3 rounded-md font-semibold text-white"
           >
             Add to list

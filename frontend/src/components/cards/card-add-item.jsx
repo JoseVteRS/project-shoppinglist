@@ -15,6 +15,7 @@ const CardAddItem = ({ item }) => {
     showUiPart(UI_PART.ITEM_INFO);
   };
 
+
   return (
     <div className="flex shadow-md rounded-xl ">
       <div
@@ -25,7 +26,7 @@ const CardAddItem = ({ item }) => {
       </div>
 
       <button
-        onClick={() => addProductToList(_id)}
+        onClick={() => addProductToList(item)}
         className="bg-white rounded-r-xl  grid h-full place-content-center  hover:bg-yellow-500 p-2  cursor-pointer group"
       >
         <PlusIcon className="stroke-gray-300 h-4 w-4 group-hover:stroke-gray-100" />

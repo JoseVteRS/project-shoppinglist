@@ -1,5 +1,6 @@
-import { useEffect, useReducer } from "react";
+import { useEffect, useMemo, useReducer } from "react";
 import { PRODUCT_ACTIONS } from "../../constants/actions/product-actions";
+import { productListAllApi } from "../../lib/api/products/product-get-all.api";
 import { productListByCategories } from "../../lib/api/products/product-get-by-category.api";
 import { productGetById } from "../../lib/api/products/product-get-by-id.api";
 import { ProductContext } from "../../lib/context/product-context";
@@ -15,11 +16,12 @@ const ProductProvider = ({ children }) => {
   );
 
   const listProducts = async () => {
-    const dataProduct = await productListByCategories();
-    if (!dataProduct) return null;
+    const { productsList } = await productListAllApi();
+    if (!productsList) return null;
+
     dispatch({
       type: PRODUCT_ACTIONS.PRODUCTS_LIST_INDEX,
-      payload: dataProduct.productsGrouped.data,
+      payload: productsList.data,
     });
   };
 
@@ -30,11 +32,6 @@ const ProductProvider = ({ children }) => {
     });
   };
 
-  useEffect(() => {
-    listProducts();
-
-  }, []);
-
   const selectProduct = async (productId) => {
     const product = await productGetById(productId);
     dispatch({
@@ -43,10 +40,10 @@ const ProductProvider = ({ children }) => {
     });
   };
 
-  const addProductToList = async (productId) => {
-    const product = await productGetById(productId);
+  const addProductToList = async (product) => {
+    // const product = await productGetById(productId);
     const productsInListPreSaved = state.productsInListPreSaved.some(
-      (prod) => prod._id === product.product.data._id
+      (prod) => prod._id === product._id
     );
 
     if (!productsInListPreSaved) {
@@ -55,7 +52,7 @@ const ProductProvider = ({ children }) => {
         payload: [
           ...state.productsInListPreSaved,
           {
-            ...product.product.data,
+            ...product,
             quantity: parseInt(1),
           },
         ],
@@ -63,7 +60,7 @@ const ProductProvider = ({ children }) => {
     }
 
     const updateProducts = state.productsInListPreSaved.map((prod) => {
-      if (prod._id !== product.product.data._id) return prod;
+      if (prod._id !== product._id) return prod;
 
       prod.quantity += 1;
       return prod;

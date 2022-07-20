@@ -6,14 +6,19 @@ import { UIContext } from "../../lib/context/ui-context";
 import Input from "../ui/form/input";
 import Textarea from "../ui/form/textarea";
 import { productCreateApi } from "../../lib/api/products/product-create.api";
-import SelectCategories from "./categories-select";
 import AddCategoryForm from "./add-category";
 import { ProductContext } from "../../lib/context/product-context";
 import { PlusCircleIcon } from "@heroicons/react/outline";
 import Modal from "../ui/modal";
-import CustomSelect from "./custom-select";
-import Select from "../ui/form/select";
+
 import { getCategories } from "../../lib/api/categories/get-categories";
+import CustomSelect from "../ui/form/select";
+
+const state = {
+  name: "",
+  note: "",
+  category: "",
+};
 
 const AddNewItem = () => {
   const { showUiPart } = useContext(UIContext);
@@ -23,19 +28,20 @@ const AddNewItem = () => {
   const [category, setCategory] = useState("");
   const [showCategoryAddForm, setShowCategoryAddForm] = useState(false);
 
-  const { register, handleSubmit, errors } = useForm();
+  const { register, errors, handleSubmit, control } = useForm({
+    defaultValues: state,
+  });
+
+  console.log({ errors });
 
   useEffect(() => {
     const fetchCategories = async () => {
       const { categories } = await getCategories();
-      
+
       setCategory(categories);
     };
     fetchCategories();
   }, []);
-
-
-  
 
   const onSubmit = async (data) => {
     setIsLoading(true);
@@ -81,11 +87,14 @@ const AddNewItem = () => {
               {!category ? (
                 <p>Loading categories option</p>
               ) : (
-                <Select
-                  options={mappedSelectOptionsCategory(category.data)}
-                  name="category"
-                  register={register}
-                />
+                <>
+                  <CustomSelect
+                    name={"category"}
+                    label={"Category"}
+                    control={control}
+                    values={mappedSelectOptionsCategory(category.data)}
+                  />
+                </>
               )}
             </div>
 
@@ -117,7 +126,7 @@ const AddNewItem = () => {
 
 const mappedSelectOptionsCategory = (categories) => {
   let options = [];
-  
+
   categories.map((category) => {
     return options.push({
       label: category.name,

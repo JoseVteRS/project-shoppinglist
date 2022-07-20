@@ -6,10 +6,10 @@ const SelectCategories = ({ label, register }) => {
 
   useEffect(() => {
     getCategoriesForOptions(setCategoriesOptions);
-  }, [getCategoriesForOptions]);
+  }, []);
 
 
-  if (!categoriesOptions) <p>"Cargando categories"</p>;
+  if (!categoriesOptions) (<p>Cargando categories</p>);
 
   return (
     <select

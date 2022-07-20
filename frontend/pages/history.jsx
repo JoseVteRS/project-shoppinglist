@@ -25,7 +25,7 @@ const HistoryPage = () => {
         {!lists ? (
           <p>Loading lists...</p>
         ) : (
-          lists.lists.data.map((item) => <HistoryItemInfo dataList={item} />)
+          lists.lists.data.map((item) => <HistoryItemInfo key={item._id} dataList={item} />)
         )}
       </section>
     </MainLayout>

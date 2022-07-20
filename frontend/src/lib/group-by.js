@@ -7,6 +7,8 @@ export const groupProductsByCategories = (items, key) => {
     {}
   );
 
+
+
   return Object.keys(products).map((key) => [
     { nameCategory: key },
     { products: products[key] },
