@@ -22,26 +22,27 @@ const state = {
 
 const AddNewItem = () => {
   const { showUiPart } = useContext(UIContext);
-  const { addProductToIndexListOnCreate } = useContext(ProductContext);
   const [showModal, setShowModal] = useState(false);
+  const [showModalConfirm, setShowModalConfirm] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [category, setCategory] = useState("");
-  const [showCategoryAddForm, setShowCategoryAddForm] = useState(false);
+  const [fieldsDirtied, setFieldsDirtied] = useState({});
 
-  const { register, errors, handleSubmit, control } = useForm({
+  const { register, formState, handleSubmit, control } = useForm({
     defaultValues: state,
   });
-
-  console.log({ errors });
 
   useEffect(() => {
     const fetchCategories = async () => {
       const { categories } = await getCategories();
-
       setCategory(categories);
     };
     fetchCategories();
   }, []);
+
+  useEffect(() => {
+    setFieldsDirtied(formState.dirtyFields);
+  }, [formState.dirtyFields]);
 
   const onSubmit = async (data) => {
     setIsLoading(true);
@@ -50,8 +51,16 @@ const AddNewItem = () => {
       setIsLoading(false);
       toast.success(`Producto \"${data.name}\" creado correctamente`);
       showUiPart(UI_PART.ITEM_LIST);
-      // addProductToIndexListOnCreate(data);
     });
+  };
+
+  const onCancel = () => {
+    console.log(formState.dirtyFields);
+    if (Object.keys(formState.dirtyFields).length !== 0) {
+      setShowModalConfirm(true);
+    } else {
+      showUiPart(UI_PART.ITEM_LIST);
+    }
   };
 
   return (
@@ -100,6 +109,7 @@ const AddNewItem = () => {
 
             <div className="flex gap-5 items-center justify-center my-8">
               <button
+                onClick={onCancel}
                 type="button"
                 className=" focus:outline-yellow-600 p-4 rounded-lg font-medium text-gray-800 hover:underline"
               >
@@ -116,8 +126,24 @@ const AddNewItem = () => {
           </form>
         </div>
 
+        <Modal
+          show={showModalConfirm}
+          onClose={() => setShowModalConfirm(false)}
+        >
+          <p className="text-xl">
+            Changes may not be saved. Are you sure you want exit
+          </p>
+          <div className=" flex items-center justify-end">
+            <button
+              className="bg-yellow-500 py-2 px-4 text-gray-100 rounded-lg"
+              onClick={() => showUiPart(UI_PART.ITEM_LIST)}
+            >
+              Yes
+            </button>
+          </div>
+        </Modal>
         <Modal show={showModal} onClose={() => setShowModal(false)}>
-          <AddCategoryForm />
+          <AddCategoryForm setShowModal={() => setShowModal(false)} />
         </Modal>
       </div>
     </>
