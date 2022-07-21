@@ -1,21 +1,25 @@
+import { useRouter } from "next/router";
 import { CalendarIcon } from "@heroicons/react/outline";
+import ButtonBack from "../../src/components/ui/button-back";
 import MainLayout from "../../src/layouts/main-layout";
 import { listGetById } from "../../src/lib/api/lists/get-by-id";
 import { formatDate } from "../../src/lib/format-date";
 import { groupProductsByCategoriesFromList } from "../../src/lib/group-by";
 
 const HistoryItemPage = ({ list }) => {
+  const router = useRouter();
+
   const productsFromListGrouped = groupProductsByCategoriesFromList(
     list.products,
     "product"
   );
 
-  console.log({ productsFromListGrouped });
+  
 
   return (
     <MainLayout>
       <div className="px-12 py-8 bg-gray-100 h-full">
-        <button> back</button>
+        <ButtonBack onBack={() => router.back()} />
         <h2 className="mt-12 font-bold text-2xl">{list.name}</h2>
         <p className="text-gray-400 text-sm mt-2 flex gap-3 items-center ">
           <CalendarIcon className="h-5" />
@@ -24,13 +28,12 @@ const HistoryItemPage = ({ list }) => {
 
         <div className="mt-12">
           {productsFromListGrouped.map((product) => {
+            console.log( product );
             return (
-              <div key={product[0].nameCategory} className="mt-12">
-                <p className="font-semibold text-xl">
-                  {product[0].nameCategory}
-                </p>
+              <div key={product.nameCategory} className="mt-12">
+                <p className="font-semibold text-xl">{product.nameCategory}</p>
                 <div className="flex flex-wrap gap-4 mt-1">
-                  {product[1].products.map((item) => {
+                  {product?.products?.map((item) => {
                     return (
                       <div
                         key={item.product._id}

@@ -15,9 +15,9 @@ const ListGroup = () => {
         return (
           <Fragment key={item._id}>
             <p className="text-gray-500 font-semibold mt-8">
-              {item[0].nameCategory}
+              {item.nameCategory}
             </p>
-            {item[1]?.products?.map((item) => {
+            {item?.products?.map((item) => {
               return <ListItem key={item._id} item={item} />;
             })}
           </Fragment>

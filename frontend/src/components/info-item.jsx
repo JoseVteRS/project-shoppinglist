@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { UI_PART } from "../constants/ui-parts";
 import { ProductContext } from "../lib/context/product-context";
 import { UIContext } from "../lib/context/ui-context";
+import ButtonBack from "./ui/button-back";
 
 const InfoItem = () => {
   const { showUiPart } = useContext(UIContext);
@@ -10,12 +11,9 @@ const InfoItem = () => {
 
   return (
     <div className="bg-white h-full p-8">
-      <button
-        onClick={() => showUiPart(UI_PART.ITEM_LIST)}
-        className="font-semibold text-yellow-500 hover:underline"
-      >
-        ← back
-      </button>
+
+      <ButtonBack onBack={() => showUiPart(UI_PART.ITEM_LIST)} />
+      
       <div className="rounded-xl overflow-hidden mt-8 ">
         <img
           className="w-full"

@@ -2,6 +2,7 @@ import { RefreshIcon, SearchIcon } from "@heroicons/react/outline";
 import { useContext, useEffect, useState } from "react";
 import CardAddItem from "../src/components/cards/card-add-item";
 import ProductFiltersWrapper from "../src/components/filters/product-filters-wrapper";
+import ProductList from "../src/components/product/product-list";
 import Loader from "../src/components/ui/loader";
 import MainLayout from "../src/layouts/main-layout";
 
@@ -10,8 +11,8 @@ import { groupProductsByCategories } from "../src/lib/group-by";
 import { useProducts } from "../src/lib/hooks/use-products";
 
 export default function Home() {
-  // const { productListIndex, listProducts } = useContext(ProductContext);
-  const { products } = useProducts(true);
+  const [showGroupFormat, setShowGroupFormat] = useState(false);
+  const { products } = useProducts(!showGroupFormat);
 
   return (
     <MainLayout>
@@ -22,12 +23,10 @@ export default function Home() {
               <span className="text-yellow-500">Shoppinglist</span> allows you
               take your shopping list wherever you go.
             </h2>
-
             <div className="w-1/3 relative">
               <div className="absolute left-3 top-2 translate-y-1/2">
                 <SearchIcon className="stroke-gray-800 w-5 h-5 " />
               </div>
-
               <input
                 type="text"
                 placeholder="search item"
@@ -35,37 +34,13 @@ export default function Home() {
               />
             </div>
           </div>
-          <section>
-            <ProductFiltersWrapper />
-            <div className="my-10">
-              {!products ? (
-                <Loader />
-              ) : (
-                products.map((product) => {
-                  return (
-                    <div key={product._id} className="mb-12">
-                      <h3
-                        key={product._id}
-                        className="text-2xl font-semibold text-gray-800 mb-5"
-                      >
-                        {product[0].nameCategory}
-                      </h3>
-                      <div className="flex flex-wrap gap-5">
-                        {product[1].products.map((item) => {
-                          return <CardAddItem key={item._id} item={item} />;
-                        })}
-                      </div>
-                    </div>
-                  );
-                })
-              )}
-            </div>
-          </section>
+          <ProductFiltersWrapper
+            showGroupFormat={showGroupFormat}
+            setShowGroupFormat={setShowGroupFormat}
+          />
+          <ProductList products={products} view={showGroupFormat} />
+         
         </section>
-        {/* 
-        <section className="w-3/12">
-          <SidebarLayout layout={showPart} />
-        </section> */}
       </div>
     </MainLayout>
   );

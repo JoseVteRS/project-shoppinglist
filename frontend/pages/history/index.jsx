@@ -1,7 +1,5 @@
-import { CalendarIcon, ChevronRightIcon } from "@heroicons/react/outline";
 import React, { useEffect, useState } from "react";
 import HistoryItemInfo from "../../src/components/history/history-item-info";
-import StatisticItem from "../../src/components/ui/statistic-item";
 import MainLayout from "../../src/layouts/main-layout";
 import { getList } from "../../src/lib/api/lists/get-list";
 

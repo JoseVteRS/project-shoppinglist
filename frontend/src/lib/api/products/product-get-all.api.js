@@ -9,7 +9,7 @@ export const productListAllApi = async (signal, filter) => {
       let products;
       if (res.ok) products = await res.json();
       return {
-        products,
+        products: products.data,
         count: 0,
         error: !res.ok,
         aborted: false,

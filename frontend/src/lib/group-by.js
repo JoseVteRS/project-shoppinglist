@@ -7,10 +7,10 @@ export const groupProductsByCategories = (items, key) => {
     {}
   );
 
-  return Object.keys(products).map( (key) => [
-    { nameCategory: key },
-    { products: products[key] },
-  ]);
+  return Object.keys(products).map((key) => ({
+    nameCategory: key,
+    products: products[key],
+  }));
 };
 
 export const groupProductsByCategoriesFromList = (items, key) => {
@@ -26,8 +26,8 @@ export const groupProductsByCategoriesFromList = (items, key) => {
     {}
   );
 
-  return Object.keys(products).map((key) => [
-    { nameCategory: key },
-    { products: products[key] },
-  ]);
+  return Object.keys(products).map((key) => ({
+    nameCategory: key,
+    products: products[key],
+  }));
 };
