@@ -55,7 +55,7 @@ const AddNewItem = () => {
   };
 
   const onCancel = () => {
-    console.log(formState.dirtyFields);
+
     if (Object.keys(formState.dirtyFields).length !== 0) {
       setShowModalConfirm(true);
     } else {

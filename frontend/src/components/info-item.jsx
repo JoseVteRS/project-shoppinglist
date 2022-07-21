@@ -7,7 +7,6 @@ const InfoItem = () => {
   const { showUiPart } = useContext(UIContext);
   const { productSelected, addProductToList } = useContext(ProductContext);
 
-  console.log({productSelected})
 
   return (
     <div className="bg-white h-full p-8">

@@ -1,23 +1,17 @@
 import { RefreshIcon, SearchIcon } from "@heroicons/react/outline";
 import { useContext, useEffect, useState } from "react";
 import CardAddItem from "../src/components/cards/card-add-item";
+import ProductFiltersWrapper from "../src/components/filters/product-filters-wrapper";
+import Loader from "../src/components/ui/loader";
 import MainLayout from "../src/layouts/main-layout";
 
 import { ProductContext } from "../src/lib/context/product-context";
 import { groupProductsByCategories } from "../src/lib/group-by";
+import { useProducts } from "../src/lib/hooks/use-products";
 
 export default function Home() {
-  const { productListIndex, listProducts } = useContext(ProductContext);
-
-  useEffect(() => {
-    listProducts();
-  }, []);
-  
-
-  const productsByCategory = groupProductsByCategories(
-    productListIndex,
-    "category"
-  );
+  // const { productListIndex, listProducts } = useContext(ProductContext);
+  const { products } = useProducts(true);
 
   return (
     <MainLayout>
@@ -41,15 +35,13 @@ export default function Home() {
               />
             </div>
           </div>
-          <button onClick={listProducts} className="bg-gray-200 rounded-lg hover:shadow-md">
-            <RefreshIcon className="h-4 m-3 stroke-gray-800" />
-          </button>
           <section>
+            <ProductFiltersWrapper />
             <div className="my-10">
-              {!productsByCategory ? (
-                <p>Cargando...</p>
+              {!products ? (
+                <Loader />
               ) : (
-                productsByCategory.map((product) => {
+                products.map((product) => {
                   return (
                     <div key={product._id} className="mb-12">
                       <h3

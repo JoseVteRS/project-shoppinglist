@@ -8,7 +8,6 @@ const ListGroup = () => {
   const { productsInListPreSaved } = useContext(ProductContext);
   let products = groupProductsByCategories(productsInListPreSaved, "category");
 
-  console.log({ productsInListPreSaved });
 
   return (
     <div className="mt-12">

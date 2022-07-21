@@ -1,6 +1,9 @@
 import { CalendarIcon, ChevronRightIcon } from "@heroicons/react/outline";
+import Link from "next/link";
 import { useEffect, useState } from "react";
+import { listGetById } from "../../lib/api/lists/get-by-id";
 import { getList } from "../../lib/api/lists/get-list";
+import { formatDate } from "../../lib/format-date";
 
 const LIST_STATE = {
   COMPLETED: "border-sky-500 text-sky-500",
@@ -10,13 +13,21 @@ const LIST_STATE = {
 };
 
 const HistoryItemInfo = ({ dataList }) => {
+  const onHandleFetch = async (listId) => {
+    await listGetById(listId);
+  };
+
   return (
-    <div className="bg-white p-5 mb-8 rounded-xl shadow-md shadow-gray-400/10">
+    <div
+      className="bg-white p-5 mb-8 rounded-xl shadow-md shadow-gray-400/10"
+      onClick={() => onHandleFetch(dataList._id)}
+    >
       <div className="flex items-center justify-between">
         <h3 className="font-semibold text-lg w-full">{dataList.name}</h3>
         <div className="flex items-center justify-end gap-5 w-full">
           <p className="flex gap-1 items-center text-gray-400 text-sm">
-            <CalendarIcon className="w-6" /> {formatDate(dataList.createdAt).date2}
+            <CalendarIcon className="w-6" />{" "}
+            {formatDate(dataList.createdAt).date2}
           </p>
           <div
             className={`${
@@ -25,18 +36,16 @@ const HistoryItemInfo = ({ dataList }) => {
           >
             {dataList.status}
           </div>
-          <ChevronRightIcon className="stroke-yellow-500 w-8" />
+          <Link href={`/history/${dataList._id}`} >
+            <a>
+              <ChevronRightIcon className="stroke-yellow-500 w-8" />
+            </a>
+          </Link>
         </div>
       </div>
     </div>
   );
 };
 
-const formatDate = (date) => {
-  let newDate = new Date(date);
-  return {
-    date1: new Date(newDate).toDateString(),
-    date2: Intl.DateTimeFormat("de-DE").format(newDate),
-  };
-};
+
 export default HistoryItemInfo;

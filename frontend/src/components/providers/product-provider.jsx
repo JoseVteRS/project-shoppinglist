@@ -4,24 +4,23 @@ import { productListAllApi } from "../../lib/api/products/product-get-all.api";
 import { productListByCategories } from "../../lib/api/products/product-get-by-category.api";
 import { productGetById } from "../../lib/api/products/product-get-by-id.api";
 import { ProductContext } from "../../lib/context/product-context";
+import { useProducts } from "../../lib/hooks/use-products";
 import {
   productReducer,
   PRODUCTS_CONTEXT_INITIAL_STATE,
 } from "../../lib/reducers/product-reducer";
 
 const ProductProvider = ({ children }) => {
+  const { products } = useProducts();
   const [state, dispatch] = useReducer(
     productReducer,
     PRODUCTS_CONTEXT_INITIAL_STATE
   );
 
   const listProducts = async () => {
-    const { productsList } = await productListAllApi();
-    if (!productsList) return null;
-
     dispatch({
       type: PRODUCT_ACTIONS.PRODUCTS_LIST_INDEX,
-      payload: productsList.data,
+      payload: products,
     });
   };
 

@@ -1,17 +1,17 @@
 import { CalendarIcon, ChevronRightIcon } from "@heroicons/react/outline";
 import React, { useEffect, useState } from "react";
-import HistoryItemInfo from "../src/components/history/history-item-info";
-import StatisticItem from "../src/components/ui/statistic-item";
-import MainLayout from "../src/layouts/main-layout";
-import { getList } from "../src/lib/api/lists/get-list";
+import HistoryItemInfo from "../../src/components/history/history-item-info";
+import StatisticItem from "../../src/components/ui/statistic-item";
+import MainLayout from "../../src/layouts/main-layout";
+import { getList } from "../../src/lib/api/lists/get-list";
 
 const HistoryPage = () => {
   const [lists, setLists] = useState(undefined);
 
   useEffect(() => {
     const fetch = async () => {
-      const asdf = await getList();
-      setLists(asdf);
+      const {lists} = await getList();
+      setLists(lists);
     };
     fetch();
   }, []);
@@ -25,7 +25,7 @@ const HistoryPage = () => {
         {!lists ? (
           <p>Loading lists...</p>
         ) : (
-          lists.lists.data.map((item) => <HistoryItemInfo key={item._id} dataList={item} />)
+          lists.data.map((item) => <HistoryItemInfo key={item._id} dataList={item} />)
         )}
       </section>
     </MainLayout>
