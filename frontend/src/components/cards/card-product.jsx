@@ -4,7 +4,7 @@ import { UI_PART } from '../../constants/ui-parts';
 import { UIContext } from '../../lib/context/ui-context';
 import { ProductContext } from '../../lib/context/product-context';
 
-const CardAddItem = ({ item }) => {
+const CardProduct = ({ item }) => {
 	const { showUiPart } = useContext(UIContext);
 	const { selectProduct, addProductToList } = useContext(ProductContext);
 
@@ -34,4 +34,4 @@ const CardAddItem = ({ item }) => {
 	);
 };
 
-export default CardAddItem;
+export default CardProduct;

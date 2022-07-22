@@ -1,5 +1,5 @@
-import {  SearchIcon } from '@heroicons/react/outline';
-import {  useState } from 'react';
+import { SearchIcon } from '@heroicons/react/outline';
+import { useState } from 'react';
 import ProductFiltersWrapper from '../src/components/filters/product-filters-wrapper';
 import ProductList from '../src/components/product/product-list';
 import MainLayout from '../src/layouts/main-layout';
@@ -13,13 +13,19 @@ export default function Home() {
 		<MainLayout>
 			<div className='w-full flex bg-gray-50 h-full'>
 				<section className='w-full p-5'>
-					<div className='mb-10 flex items-start justify-between'>
-						<h2 className='font-semibold text-4xl w-2/3'>
-							<span className='text-yellow-500'>
-								Shoppinglist
-							</span>{' '}
-							allows you take your shopping list wherever you go.
-						</h2>
+					<div className='mb-10 flex items-start justify-between gap-28'>
+						<div>
+							<h2 className='text-4xl font-thin'>
+								Hi,{' '}
+								<span className='text-yellow-500 font-medium'>
+									User
+								</span>
+							</h2>
+							<p className=' text-gray-400 text-lg'>
+								Wellcome to your shoppinglist
+							</p>
+						</div>
+
 						<div className='w-1/3 relative'>
 							<div className='absolute left-3 top-2 translate-y-1/2'>
 								<SearchIcon className='stroke-gray-800 w-5 h-5 ' />

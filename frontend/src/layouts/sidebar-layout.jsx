@@ -11,7 +11,11 @@ const LAYOUT = {
 
 const SidebarLayout = ({ layout }) => {
 	const LayoutToRender = LAYOUT[layout];
-	return <LayoutToRender />;
+	return (
+		<div className='w-full sticky top-0 '>
+			<LayoutToRender />
+		</div>
+	);
 };
 
 export default SidebarLayout;

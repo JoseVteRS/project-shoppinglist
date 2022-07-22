@@ -2,17 +2,10 @@ import React, { useEffect, useState } from 'react';
 import HistoryItemInfo from '../../src/components/history/history-item-info';
 import MainLayout from '../../src/layouts/main-layout';
 import { getList } from '../../src/lib/api/lists/get-list';
+import { useLists } from '../../src/lib/hooks/use-lists';
 
 const HistoryPage = () => {
-	const [lists, setLists] = useState(undefined);
-
-	useEffect(() => {
-		const fetch = async () => {
-			const { lists } = await getList();
-			setLists(lists);
-		};
-		fetch();
-	}, []);
+	const { lists, listsError, listsLoading } = useLists();
 
 	return (
 		<MainLayout>
@@ -22,10 +15,11 @@ const HistoryPage = () => {
 						Shopping history
 					</h2>
 				</div>
-				{!lists ? (
+				{listsError && <p>Error to load lists</p>}
+				{listsLoading ? (
 					<p>Loading lists...</p>
 				) : (
-					lists.data.map(item => (
+					lists.map(item => (
 						<HistoryItemInfo key={item._id} dataList={item} />
 					))
 				)}

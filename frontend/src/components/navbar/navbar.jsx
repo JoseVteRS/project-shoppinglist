@@ -8,6 +8,7 @@ import {
 } from '@heroicons/react/outline';
 import { useContext } from 'react';
 import { ProductContext } from '../../lib/context/product-context';
+import Tooltip from '../ui/tooltip';
 
 const Navbar = () => {
 	const { productsInListPreSaved } = useContext(ProductContext);
@@ -21,31 +22,37 @@ const Navbar = () => {
 
 				<div className='flex gap-12 flex-col items-center w-full'>
 					<Link href='/'>
-						<div className='w-full grid place-content-center relative'>
-							{isActiveRoute('/') && (
-								<div className='bg-yellow-600 w-2 h-16 absolute left-0 top-1/2 transform -translate-y-1/2 rounded-r-md' />
-							)}
+						<Tooltip overlay={<span>inicio</span>}>
+							<div className='w-full grid place-content-center relative'>
+								{isActiveRoute('/') && (
+									<div className='bg-yellow-600 w-2 h-16 absolute left-0 top-1/2 transform -translate-y-1/2 rounded-r-md' />
+								)}
 
-							<ViewListIcon className='h-6 w-6 text-gray-800' />
-						</div>
+								<ViewListIcon className='h-6 w-6 text-gray-800' />
+							</div>
+						</Tooltip>
 					</Link>
 
 					<Link href='/history'>
-						<div className='w-full grid place-content-center relative'>
-							{isActiveRoute('/history') && (
-								<div className='bg-yellow-600 w-2 h-16 absolute left-0 top-1/2 transform -translate-y-1/2 rounded-r-md' />
-							)}
-							<RefreshIcon className='h-6 w-6 text-gray-800' />
-						</div>
+						<Tooltip overlay={<span>history</span>}>
+							<div className='w-full grid place-content-center relative'>
+								{isActiveRoute('/history') && (
+									<div className='bg-yellow-600 w-2 h-16 absolute left-0 top-1/2 transform -translate-y-1/2 rounded-r-md' />
+								)}
+								<RefreshIcon className='h-6 w-6 text-gray-800' />
+							</div>
+						</Tooltip>
 					</Link>
 
 					<Link href='/statistics'>
-						<div className='w-full grid place-content-center relative'>
-							{isActiveRoute('/statistics') && (
-								<div className='bg-yellow-600 w-2 h-16 absolute left-0 top-1/2 transform -translate-y-1/2 rounded-r-md' />
-							)}
-							<ChartSquareBarIcon className='h-6 w-6 text-gray-800' />
-						</div>
+						<Tooltip overlay={<span>statistics</span>}>
+							<div className='w-full grid place-content-center relative'>
+								{isActiveRoute('/statistics') && (
+									<div className='bg-yellow-600 w-2 h-16 absolute left-0 top-1/2 transform -translate-y-1/2 rounded-r-md' />
+								)}
+								<ChartSquareBarIcon className='h-6 w-6 text-gray-800' />
+							</div>
+						</Tooltip>
 					</Link>
 				</div>
 				<div className='w-10 h-10 rounded-full bg-yellow-600 grid place-content-center'>

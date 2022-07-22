@@ -1,5 +1,5 @@
 import React from 'react';
-import CardAddItem from '../cards/card-add-item';
+import CardAddItem from '../cards/card-product';
 
 const ProductRow = ({ products }) => {
 	console.log(products.data);

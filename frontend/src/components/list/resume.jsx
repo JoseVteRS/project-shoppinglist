@@ -39,7 +39,7 @@ const Resume = () => {
 	};
 
 	return (
-		<div className='w-full sticky top-0 '>
+		<>
 			<div className='bg-orange-100 p-5 h-[90vh] overflow-y-scroll'>
 				<CreateProduct />
 
@@ -83,7 +83,7 @@ const Resume = () => {
 					)}
 				</div>
 			</div>
-		</div>
+		</>
 	);
 };
 
