@@ -1,4 +1,4 @@
 export const UI_ACTIONS = {
-    UI_PART: 'UI_PART_SHOWED',
-    UI_EDIT_LIST: 'UI_EDIT_LIST'
-}
+	UI_PART: 'UI_PART_SHOWED',
+	UI_EDIT_LIST: 'UI_EDIT_LIST'
+};
