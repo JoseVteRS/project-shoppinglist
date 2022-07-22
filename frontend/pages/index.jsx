@@ -1,13 +1,8 @@
-import { RefreshIcon, SearchIcon } from '@heroicons/react/outline';
-import { useContext, useEffect, useState } from 'react';
-import CardAddItem from '../src/components/cards/card-add-item';
+import {  SearchIcon } from '@heroicons/react/outline';
+import {  useState } from 'react';
 import ProductFiltersWrapper from '../src/components/filters/product-filters-wrapper';
 import ProductList from '../src/components/product/product-list';
-import Loader from '../src/components/ui/loader';
 import MainLayout from '../src/layouts/main-layout';
-
-import { ProductContext } from '../src/lib/context/product-context';
-import { groupProductsByCategories } from '../src/lib/group-by';
 import { useProducts } from '../src/lib/hooks/use-products';
 
 export default function Home() {

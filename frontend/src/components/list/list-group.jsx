@@ -14,14 +14,14 @@ const ListGroup = () => {
 		<div className='mt-12'>
 			{products.map(item => {
 				return (
-					<Fragment key={item._id}>
+					<div key={item._id}>
 						<p className='text-gray-500 font-semibold mt-8'>
 							{item.nameCategory}
 						</p>
 						{item?.products?.map(item => {
 							return <ListItem key={item._id} item={item} />;
 						})}
-					</Fragment>
+					</div>
 				);
 			})}
 		</div>
